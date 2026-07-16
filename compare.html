@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2 dark variants — Swimlanes / Signed / Assembly line / Shared canvas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <article id="compare" style="padding-top: var(--sp-12);">
+    <header class="article-header">
+      <h1 style="font-size: var(--fs-28);">V2 dark variants — pick a direction</h1>
+      <p class="subtitle">Review artifact, not part of the article. Three dark-canvas takes on "request-response, then an agent enters" plus a fourth "shared canvas" direction where both participants author nodes onto one graph — same content, with the Miro-style proposal+parallel beat added.</p>
+    </header>
+
+    <section>
+      <h2>Variant A — Swimlanes</h2>
+      <p>Provenance by position: the agent's proposal is born in a narrow lane, physically apart from the human's spine, then slides on and commits once approved.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2A" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variant A — the agent's Evidence node appears dashed in its own lane, then slides onto the spine on approval.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variant B — Signed</h2>
+      <p>Provenance by attribution: every node on the single spine carries a persistent authorship stamp — "you" or "Research agent" — that accumulates as the spine builds and flips on approval.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2B" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variant B — the Evidence node's stamp reads "proposed · Research agent," then flips to "approved · you" as it commits.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variant C — Assembly line</h2>
+      <p>The control: a single spine, each element dropping in beneath the last, no lanes and no stamps — only the cursor tags carry identity.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2C" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variant C — the dashed Evidence node commits to solid in place, at the bottom of the outline.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variant D — Shared canvas</h2>
+      <p>The Miro-style direction: a simplified graph canvas where both you and the agent author nodes onto one shared surface. The signature beat is parallel authorship — you type your own solution while the agent is concurrently thinking up its own; your node then slides left to make room for the agent's dashed sibling. Research nests *inside* your solution card as an indented sub-line, because it belongs there, not as a sibling on the canvas.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2D" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variant D — you type "Onboarding emails" while the agent thinks; later the agent's research drops inside your card, dashed until you confirm.</figcaption>
+      </figure>
+    </section>
+  </article>
+
+  <script src="js/timeline.js?v=4"></script>
+  <script src="js/kit.js?v=4"></script>
+  <script src="js/renderer.js?v=4"></script>
+  <script src="js/scenes/v2-swimlane.js?v=4"></script>
+  <script src="js/scenes/v2-signed.js?v=4"></script>
+  <script src="js/scenes/v2-assembly.js?v=4"></script>
+  <script src="js/scenes/v2-shared-canvas.js?v=4"></script>
+  <script src="js/main.js?v=4"></script>
+</body>
+</html>

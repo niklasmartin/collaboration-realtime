@@ -1,124 +1,70 @@
-// scenes/d1.js — D1, "Three ways updates reach the browser" (animations.md).
-//
-// Three side-by-side panels comparing polling, SSE, and WebSockets.
-// The structural elements (regions, nodes, edges, labels) are static —
-// they appear immediately and stay.  Only the data-flow actions
-// (pulses, intents, events) animate and loop.
-
+// D1 — three transport patterns shown as moving messages.
 (function (root) {
   'use strict';
 
   var SceneKit = root && root.SceneKit ? root.SceneKit : require('../kit.js');
 
+  function packet(scene, id, label, from, to, at, duration, options) {
+    options = options || {};
+    scene.createNode(id, at, {
+      x: from.x, y: from.y, w: options.w || 72, h: 28,
+      label: label, kind: options.kind || 'provisional', duration: 160,
+    });
+    scene.moveNode(id, from, to, at + 160, duration, { easing: 'easeInOut' });
+    scene.removeNode(id, at + duration + 360, { duration: 160 });
+  }
+
   function buildD1() {
-    var scene = SceneKit.createScene(8600, { fadeDuration: 500 });
+    var scene = SceneKit.createScene(11200, { fadeDuration: 500 });
 
-    // -- Panel layout -----------------------------------------------------
-    // Panel 1 (Polling)   : x=20..260   c=140
-    // Panel 2 (SSE)       : x=280..520  c=400
-    // Panel 3 (WebSockets): x=540..780  c=660
+    var panels = [
+      { id: 'poll', x: 18, label: 'POLLING', note: 'Browser asks on a timer' },
+      { id: 'sse', x: 278, label: 'SSE', note: 'Server pushes down one stream' },
+      { id: 'ws', x: 538, label: 'WEBSOCKETS', note: 'Either side can send now' },
+    ];
 
-    var B1 = { x: 38,  y: 140, w: 62, h: 30 };
-    var S1 = { x: 190, y: 140, w: 50, h: 30 };
-    var B2 = { x: 298, y: 140, w: 62, h: 30 };
-    var S2 = { x: 450, y: 140, w: 50, h: 30 };
-    var B3 = { x: 558, y: 140, w: 62, h: 30 };
-    var S3 = { x: 710, y: 140, w: 50, h: 30 };
+    panels.forEach(function (p) {
+      scene.region('r-' + p.id, { x: p.x, y: 40, w: 244, h: 360, label: p.label, opacity: 1 });
+      scene.node('note-' + p.id, { x: p.x + 14, y: 68, w: 216, h: 30, label: p.note, opacity: 1 });
+      scene.node('browser-' + p.id, { x: p.x + 18, y: 184, w: 76, h: 42, label: 'Browser', opacity: 1 });
+      scene.node('server-' + p.id, { x: p.x + 150, y: 184, w: 76, h: 42, label: 'Server', opacity: 1 });
+    });
 
-    // -- Regions — visible from t=0, stay through the loop ----------------
-    scene.region('r_pol', { x: 20,  y: 60, w: 240, h: 320, label: 'Polling',    opacity: 1 });
-    scene.region('r_sse', { x: 280, y: 60, w: 240, h: 320, label: 'SSE',        opacity: 1 });
-    scene.region('r_ws',  { x: 540, y: 60, w: 240, h: 320, label: 'WebSockets', opacity: 1 });
+    scene.edge('rail-poll', { from: 'browser-poll', to: 'server-poll', fromAnchor: 'right', toAnchor: 'left', progress: 1, straight: true });
+    scene.edge('rail-sse', { from: 'server-sse', to: 'browser-sse', fromAnchor: 'left', toAnchor: 'right', progress: 1, straight: true });
+    scene.edge('rail-ws', { from: 'browser-ws', to: 'server-ws', fromAnchor: 'right', toAnchor: 'left', progress: 1, straight: true });
 
-    // -- Browser & Server nodes — static, visible from t=0 -----------------
-    scene.node('pol_browser', { x: B1.x, y: B1.y, w: B1.w, h: B1.h, label: 'Browser', opacity: 1 });
-    scene.node('pol_server',  { x: S1.x, y: S1.y, w: S1.w, h: S1.h, label: 'Server',  opacity: 1 });
-    scene.node('sse_browser', { x: B2.x, y: B2.y, w: B2.w, h: B2.h, label: 'Browser', opacity: 1 });
-    scene.node('sse_server',  { x: S2.x, y: S2.y, w: S2.w, h: S2.h, label: 'Server',  opacity: 1 });
-    scene.node('ws_browser',  { x: B3.x, y: B3.y, w: B3.w, h: B3.h, label: 'Browser', opacity: 1 });
-    scene.node('ws_server',   { x: S3.x, y: S3.y, w: S3.w, h: S3.h, label: 'Server',  opacity: 1 });
+    scene.node('poll-clock', { x: 82, y: 305, w: 116, h: 32, label: 'every 3 seconds', opacity: 1 });
+    scene.node('sse-open', { x: 320, y: 305, w: 160, h: 32, label: 'connection stays open', opacity: 1 });
+    scene.node('ws-open', { x: 580, y: 305, w: 160, h: 32, label: 'connection stays open', opacity: 1 });
 
-    // -- Edges — straight lines, fully drawn from t=0 ---------------------
-    scene.edge('e_pol', { from: 'pol_browser', to: 'pol_server', fromAnchor: 'right', toAnchor: 'left',  progress: 1, straight: true });
-    scene.edge('e_sse', { from: 'sse_server',  to: 'sse_browser', fromAnchor: 'left',  toAnchor: 'right', progress: 1, straight: true });
-    scene.edge('e_ws',  { from: 'ws_browser',  to: 'ws_server',  fromAnchor: 'right', toAnchor: 'left',  progress: 1, straight: true });
+    // Polling: two empty round trips before the update is discovered.
+    packet(scene, 'poll-get-1', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 900, 650);
+    packet(scene, 'poll-empty-1', 'no change', { x: 164, y: 238 }, { x: 92, y: 238 }, 1900, 650, { w: 84, kind: 'standard' });
+    packet(scene, 'poll-get-2', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 4100, 650);
+    packet(scene, 'poll-empty-2', 'no change', { x: 164, y: 238 }, { x: 92, y: 238 }, 5100, 650, { w: 84, kind: 'standard' });
+    packet(scene, 'poll-get-3', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 7300, 650);
+    packet(scene, 'poll-data', 'update', { x: 164, y: 238 }, { x: 92, y: 238 }, 8300, 650, { kind: 'provisional' });
+    scene.showIntent(null, 'found on next poll', 9100, { anchor: { x: 140, y: 286 }, duration: 1300 });
 
-    // -- Static direction labels. Keep all explanatory text out of the
-    // moving path so the animation stays legible.
-    scene.node('pol_req',      { x: 88,  y: 100, w: 104, h: 24, label: 'request ->', opacity: 1 });
-    scene.node('pol_resp',     { x: 88,  y: 195, w: 104, h: 24, label: '<- response', opacity: 1 });
-    scene.node('pol_interval', { x: 82,  y: 315, w: 116, h: 24, label: 'repeat later', opacity: 1 });
+    // SSE: updates only travel from server to browser.
+    packet(scene, 'sse-data-1', 'event 1', { x: 424, y: 150 }, { x: 352, y: 150 }, 1500, 800, { kind: 'provisional' });
+    packet(scene, 'sse-data-2', 'event 2', { x: 424, y: 238 }, { x: 352, y: 238 }, 4100, 800, { kind: 'provisional' });
+    packet(scene, 'sse-data-3', 'event 3', { x: 424, y: 150 }, { x: 352, y: 150 }, 6900, 800, { kind: 'provisional' });
+    scene.showIntent(null, 'server -> browser', 8200, { anchor: { x: 400, y: 286 }, duration: 1700 });
 
-    scene.node('sse_flow',     { x: 342, y: 115, w: 116, h: 24, label: '<- events', opacity: 1 });
-    scene.node('sse_label',    { x: 335, y: 315, w: 130, h: 24, label: 'one-way stream', opacity: 1 });
+    // WebSockets: distinct messages travel in both directions.
+    packet(scene, 'ws-up-1', 'edit', { x: 622, y: 145 }, { x: 684, y: 145 }, 1200, 800, { kind: 'standard' });
+    packet(scene, 'ws-down-1', 'update', { x: 684, y: 238 }, { x: 612, y: 238 }, 3000, 800, { kind: 'provisional' });
+    packet(scene, 'ws-up-2', 'approve', { x: 612, y: 145 }, { x: 674, y: 145 }, 5400, 800, { w: 82, kind: 'standard' });
+    packet(scene, 'ws-down-2', 'presence', { x: 674, y: 238 }, { x: 602, y: 238 }, 7300, 800, { w: 86, kind: 'provisional' });
+    scene.showIntent(null, 'browser <-> server', 8600, { anchor: { x: 660, y: 286 }, duration: 1700 });
 
-    scene.node('ws_send',      { x: 608, y: 100, w: 104, h: 24, label: 'send ->', opacity: 1 });
-    scene.node('ws_recv',      { x: 608, y: 195, w: 104, h: 24, label: '<- push', opacity: 1 });
-    scene.node('ws_label',     { x: 595, y: 315, w: 130, h: 24, label: 'two-way channel', opacity: 1 });
-
-    // ====================================================================
-    // Actions — these animate and loop
-    // ====================================================================
-
-    // ---- Polling: 3 request/response cycles ----
-    //
-    // "GET /api" above the edge at y=115.
-    // Responses below at y=198.
-
-    // Cycle 1: browser asks, server answers.
-    scene.pulse(100, 155, 900, { radius: 22, duration: 600 });
-    scene.pulse(190, 155, 1500, { radius: 18, duration: 500 });
-    scene.showIntent(null, 'same', 1650, { anchor: { x: 140, y: 248 }, duration: 900, fade: 140 });
-
-    // Cycle 2
-    scene.pulse(100, 155, 3000, { radius: 22, duration: 600 });
-    scene.pulse(190, 155, 3600, { radius: 18, duration: 500 });
-    scene.showIntent(null, 'same', 3750, { anchor: { x: 140, y: 248 }, duration: 900, fade: 140 });
-
-    // Cycle 3 — updated
-    scene.pulse(100, 155, 5200, { radius: 22, duration: 600 });
-    scene.pulse(190, 155, 5800, { radius: 18, duration: 500 });
-    scene.showIntent(null, 'new data', 5950, { anchor: { x: 140, y: 248 }, duration: 1000, fade: 140 });
-
-    // ---- SSE: streaming fragments ----
-    //
-    // Text chunks below the edge, stacking downward.
-
-    scene.pulse(S2.x, 155, 1300, { radius: 20, duration: 650 });
-    scene.pulse(S2.x, 155, 2600, { radius: 20, duration: 650 });
-    scene.pulse(S2.x, 155, 3900, { radius: 20, duration: 650 });
-    scene.pulse(S2.x, 155, 5200, { radius: 20, duration: 650 });
-    scene.showIntent(null, 'open stream', 6500, { anchor: { x: 400, y: 248 }, duration: 900, fade: 140 });
-
-    // ---- WebSockets: bidirectional events ----
-    //
-    // send() above the edge at y=115, recv() below at y=198.
-
-    // Round 1
-    scene.pulse(B3.x + B3.w, 155, 1800, { radius: 24, duration: 650 });
-
-    scene.pulse(S3.x, 155, 3000, { radius: 24, duration: 650 });
-    scene.showIntent(null, 'live', 3200, { anchor: { x: 660, y: 248 }, duration: 900, fade: 140 });
-
-    // Round 2
-    scene.pulse(B3.x + B3.w, 155, 5000, { radius: 24, duration: 650 });
-
-    scene.pulse(S3.x, 155, 6200, { radius: 24, duration: 650 });
-    scene.showIntent(null, 'live', 6400, { anchor: { x: 660, y: 248 }, duration: 900, fade: 140 });
-
-    // ====================================================================
-    // Short hold only — enough to read the comparison before reset.
-    // ====================================================================
-    scene.appendActivity('Polling repeats requests; SSE streams down; WebSockets send both ways', 7300);
-
+    scene.appendActivity('Polling waits to ask · SSE pushes server events · WebSockets carry messages both ways', 9000);
     return scene.build();
   }
 
   var compiled = buildD1();
-
-  if (root) {
-    root.scenes = root.scenes || {};
-    root.scenes.D1 = compiled;
-  }
+  if (root) { root.scenes = root.scenes || {}; root.scenes.D1 = compiled; }
   if (typeof module !== 'undefined' && module.exports) module.exports = compiled;
 })(typeof window !== 'undefined' ? window : null);

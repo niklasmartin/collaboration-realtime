@@ -353,6 +353,14 @@ figcaption {
   border-color: #2a2a32;
 }
 
+/* V5's history is chronological, so preserve the newest policy result when
+   the single-line ticker has to clip on a narrow canvas. */
+.animation-container[data-scene='V5'] .animation-activity-log {
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}
+
 .animation-container.reduced-motion {
   display: flex;
   align-items: center;
@@ -569,6 +577,17 @@ code {
   .figure-breakout {
     width: 100%;
     margin-left: 0;
+  }
+
+  /* Keep the closing workspace's SVG labels readable after the 800px scene
+     is scaled into a narrow viewport. HTML presence labels already retain
+     their CSS pixel size; this brings the graph labels closer to parity. */
+  .animation-container[data-scene='V5'] svg text {
+    font-size: 15px;
+  }
+
+  .animation-container[data-scene='V5'] .animation-overlay > div {
+    font-size: 9px !important;
   }
 
   .layer-cards {

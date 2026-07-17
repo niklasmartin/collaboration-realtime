@@ -18,7 +18,7 @@
   var SceneKit = root && root.SceneKit ? root.SceneKit : require('../kit.js');
 
   function buildV3() {
-    var scene = SceneKit.createScene(9000, { fadeDuration: 700 });
+    var scene = SceneKit.createScene(11200, { fadeDuration: 700 });
 
     // -- layout -----------------------------------------------------------
     //
@@ -128,36 +128,39 @@
     scene.selectNode('problem', 7300, true, { color: '#a0a0ab' });
 
     // ======================================================================
-    // Beat 6 — You starts moving userSolution. Structure agent notices and
-    // targets the same node. First time two things happen on one object.
+    // Beat 6 — both actors grab the same card and pull toward incompatible
+    // destinations. The canvas cannot infer a final position.
     // ======================================================================
 
-    scene.moveCursor('you', { x: 190, y: 175 }, { x: 120, y: 205 }, 7500, 400, { arc: -8 });
-    scene.moveNode('userSolution',
-      { x: USER_SOL.x, y: USER_SOL.y },
-      { x: 20, y: USER_SOL.y },
-      7900, 600, { easing: 'easeInOut' }
-    );
-    scene.showIntent('you', 'Moving', 8000, {
-      anchor: { x: 80, y: 195 },
-      duration: 1200,
+    scene.createNode('yourTarget', 7500, {
+      x: 20, y: 355, w: 190, h: 42, label: 'Your destination: left', kind: 'ghost', duration: 300,
     });
-
-    // Structure agent also targets userSolution — collision.
-    scene.moveCursor('structureAgent', { x: 620, y: 175 }, { x: 280, y: 205 }, 8000, 600, { arc: -16 });
+    scene.createNode('agentTarget', 7500, {
+      x: 590, y: 355, w: 190, h: 42, label: 'Agent destination: right', kind: 'ghost', duration: 300,
+    });
+    scene.moveCursor('you', { x: 190, y: 175 }, { x: 72, y: 175 }, 7600, 600, { arc: 0 });
+    scene.moveCursor('structureAgent', { x: 620, y: 175 }, { x: 306, y: 175 }, 7600, 650, { arc: 0 });
     scene.selectNode('userSolution', 8300, true, { color: '#5e6ad2' });
-    scene.pulse(280, 205, 8400, { radius: 28, duration: 700, color: '#5e6ad2' });
+    scene.pulse(72, 175, 8300, { radius: 30, duration: 850 });
+    scene.pulse(306, 175, 8300, { radius: 30, duration: 850, color: '#5e6ad2' });
+    scene.moveNode('userSolution', { x: USER_SOL.x, y: USER_SOL.y }, { x: 35, y: USER_SOL.y }, 8600, 280, { easing: 'easeInOut' });
+    scene.moveNode('userSolution', { x: 35, y: USER_SOL.y }, { x: 85, y: USER_SOL.y }, 8880, 280, { easing: 'easeInOut' });
+    scene.moveNode('userSolution', { x: 85, y: USER_SOL.y }, { x: USER_SOL.x, y: USER_SOL.y }, 9160, 280, { easing: 'easeInOut' });
+    scene.showIntent(null, 'COLLISION: same card, two destinations', 9300, {
+      anchor: { x: 400, y: 430 }, duration: 1500, fade: 180,
+    });
+    scene.appendActivity('Collision unresolved: You and Structure agent grabbed Onboarding emails', 9300);
 
     // ======================================================================
-    // Beat 7 — Hold the collision, then reset (8500–9000ms).
+    // Beat 7 — Hold the unresolved collision long enough to read it.
     // ======================================================================
 
-    scene.hideCursor('you', 8800, { fade: 150 });
-    scene.hideCursor('maya', 8800, { fade: 150 });
-    scene.hideCursor('researchAgent', 8800, { fade: 150 });
-    scene.hideCursor('structureAgent', 8800, { fade: 150 });
-    scene.selectNode('userSolution', 8800, false);
-    scene.selectNode('problem', 8800, false);
+    scene.hideCursor('you', 10800, { fade: 150 });
+    scene.hideCursor('maya', 10800, { fade: 150 });
+    scene.hideCursor('researchAgent', 10800, { fade: 150 });
+    scene.hideCursor('structureAgent', 10800, { fade: 150 });
+    scene.selectNode('userSolution', 10800, false);
+    scene.selectNode('problem', 10800, false);
 
     return scene.build();
   }

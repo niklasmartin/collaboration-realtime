@@ -70,7 +70,7 @@
       <p>The interface now has several independent participants, each with its own timing, responsibilities, and understanding of the task.</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="V3" data-theme="dark" data-cursor-tags="boxed"></div>
-        <figcaption>Two people and two agents work on the same canvas — before anything tells them what the others are doing.</figcaption>
+        <figcaption>Two people and two agents can work independently until their intentions converge on one object. Here, You and the Structure agent grab the same card and pull toward incompatible destinations.</figcaption>
       </figure>
       <p>At first, this can look like a simple increase in activity. More cursors. More nodes. More changes arriving more quickly.</p>
       <p>But the real difference is not the number of animations on the screen. It is that causality is no longer obvious.</p>
@@ -103,7 +103,7 @@
       <p>Objects move without explanation. Connections appear from nowhere. Labels change while someone is reading them. The user cannot tell whether a change came from another person, an agent, or the system itself. They do not know whether an operation is complete, whether it is safe to intervene, or whether their own work is about to be overwritten.</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="V4" data-theme="dark" data-cursor-tags="boxed"></div>
-        <figcaption>Same state, two readings: the second pass adds actor labels, intent signals, and history to explain the silent changes.</figcaption>
+        <figcaption>The document changes identically on both sides. Signals on the right add the missing explanation: who is acting, what is provisional, where attention is focused, and what just happened.</figcaption>
       </figure>
       <p>Nothing about the underlying data needs to change between these two versions. What changes is the interface's explanation of that data.</p>
       <p>The second version restores the information that single-user software could previously leave implicit:</p>
@@ -225,7 +225,7 @@
       <p>The important distinction is not that WebSockets are primitive. It is that they solve the transport layer, while the application still owns the room.</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="D1" data-theme="dark" data-cursor-tags="boxed"></div>
-        <figcaption>Three ways updates reach the browser — polling, SSE, and WebSockets compared.</figcaption>
+        <figcaption>Polling discovers changes on its next request. SSE pushes server events down one open stream. WebSockets carry messages in either direction as soon as either side sends them.</figcaption>
       </figure>
       <p class="sources"><strong>Sources:</strong> MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval">Window: setInterval() method</a>; MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Using server-sent events</a>; MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">The WebSocket API</a>; Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a>; Figma, <a href="https://www.figma.com/blog/making-multiplayer-more-reliable/">Making multiplayer more reliable</a>; InstantDB, <a href="https://www.instantdb.com/essays/architecture">A backend for AI-coded apps</a> (vendor-authored)</p>
     </section>
@@ -274,7 +274,7 @@
       <p>It is, "Which strategy does this operation require?"</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="D2" data-theme="dark" data-cursor-tags="boxed"></div>
-        <figcaption>One collision, three policies — later value wins, temporary lock, and separate fields both survive.</figcaption>
+        <figcaption>The same overlap needs different rules: a later position can replace an earlier one; a temporary lock blocks the second editor only until ownership transfers; edits to title and status can both survive because they touch different fields.</figcaption>
       </figure>
       <p class="sources"><strong>Sources:</strong> Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a>; Figma, <a href="https://www.figma.com/blog/realtime-editing-of-ordered-sequences/">Realtime editing of ordered sequences</a>; Yjs documentation, <a href="https://docs.yjs.dev/">https://docs.yjs.dev/</a></p>
     </section>
@@ -460,7 +460,7 @@ channel
       <p>The right choice depends on whether reducing synchronization plumbing is worth adopting a more opinionated backend abstraction.</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="D4" data-theme="dark" data-cursor-tags="boxed"></div>
-        <figcaption>Event handlers versus a subscribed result — explicit cache-handling code compared with data that stays current through the sync layer.</figcaption>
+        <figcaption>The same remote change creates two different jobs: event delivery leaves the application to update and reconcile its cache; a live query makes the sync layer responsible for keeping the subscribed result current.</figcaption>
       </figure>
       <p class="sources"><strong>Sources:</strong> InstantDB, <a href="https://www.instantdb.com/essays/db_browser">Database in the Browser, a Spec</a> (vendor-authored); InstantDB, <a href="https://www.instantdb.com/essays/architecture">A backend for AI-coded apps</a> (vendor-authored); InstantDB, <a href="https://www.instantdb.com/docs/instaql">InstaQL</a>; InstantDB, <a href="https://www.instantdb.com/docs/presence-and-topics">Presence and topics</a>; InstantDB, <a href="https://www.instantdb.com/docs/permissions">Permissions</a>; InstantDB, <a href="https://www.instantdb.com/docs/self-hosting">Self-hosting</a></p>
     </section>
@@ -565,8 +565,8 @@ channel
       <p>The amount of activity has not decreased.</p>
       <p>What changes is that the activity has become understandable.</p>
       <figure class="figure-breakout">
-        <div class="animation-container" data-scene="V5"></div>
-        <figcaption>A legible multi-agent workspace — the user creates an idea while the research agent announces it is adding evidence. The structure agent highlights two targets before connecting them. A second human reviews the top-level question. When an agent action conflicts with a human edit, the interface applies a visible policy and records the result in the activity history.</figcaption>
+        <div class="animation-container" data-scene="V5" data-theme="dark" data-cursor-tags="boxed" role="img" aria-labelledby="v5-caption"></div>
+        <figcaption id="v5-caption">A legible multi-agent workspace — the user creates an idea while the research agent announces it is adding evidence. The structure agent highlights two targets before connecting them. A second human reviews the top-level question. When an agent action conflicts with a human edit, the interface applies a visible policy and records the result in the activity history.</figcaption>
       </figure>
       <p>Nothing an agent does arrives without context.</p>
       <p>Its target becomes visible before the action. Provisional work looks provisional. Completed work is attributed. Consequential changes can be interrupted or undone. When two actions overlap, the result follows a rule that the interface can explain.</p>
@@ -597,6 +597,7 @@ channel
   <script src="js/scenes/v2-shared-canvas.js"></script>
   <script src="js/scenes/v3.js"></script>
   <script src="js/scenes/v4.js"></script>
+  <script src="js/scenes/v5.js"></script>
   <script src="js/scenes/d1.js"></script>
   <script src="js/scenes/d2.js"></script>
   <script src="js/scenes/d3.js"></script>

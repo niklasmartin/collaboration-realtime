@@ -106,15 +106,7 @@
         <figcaption>The document changes identically on both sides. Signals on the right add the missing explanation: who is acting, what is provisional, where attention is focused, and what just happened.</figcaption>
       </figure>
       <p>Nothing about the underlying data needs to change between these two versions. What changes is the interface's explanation of that data.</p>
-      <p>The second version restores the information that single-user software could previously leave implicit:</p>
-      <ul>
-        <li>whose cursor is approaching an object;</li>
-        <li>which participant currently has it selected;</li>
-        <li>what an agent intends to do before it does it;</li>
-        <li>whether a change is pending, provisional, or committed;</li>
-        <li>who performed each completed action;</li>
-        <li>and how the user can reverse or interrupt it.</li>
-      </ul>
+      <p>The second version restores information that single-user software could previously leave implicit. It shows whose cursor is approaching an object, which participant has it selected, and what an agent intends to do before it acts. It distinguishes pending and provisional work from committed changes, attributes completed actions, and gives the user a way to reverse or interrupt them.</p>
       <p>Realtime synchronization makes a shared workspace possible. It does not make that workspace understandable.</p>
       <p>Five questions separate synchronized state from usable collaboration:</p>
       <ol>
@@ -145,15 +137,7 @@
   const state = await fetch('/api/jobs/42').then((res) => res.json());
   render(state);
 }, 3000);</code></pre>
-      <p>Polling is easy to underestimate because its behavior is so simple. That simplicity is often exactly what a product needs.</p>
-      <p>It works well for:</p>
-      <ul>
-        <li>background export status;</li>
-        <li>long-running research jobs;</li>
-        <li>notification counters;</li>
-        <li>workflows where a few seconds of delay are acceptable;</li>
-        <li>applications where operational simplicity matters more than immediacy.</li>
-      </ul>
+      <p>Polling is easy to underestimate because its behavior is so simple. That simplicity is often exactly what a product needs. Background export status, long-running research jobs, notification counters, and other workflows that tolerate a few seconds of delay rarely need a persistent connection. In those cases, operational simplicity matters more than immediacy.</p>
       <p>The backend can remain largely stateless. Requests use ordinary HTTP. Failures are familiar and easy to inspect.</p>
       <p>The tradeoff is that the browser asks whether anything changed even when nothing did. The visible delay is tied directly to the polling interval: a three-second interval can leave the interface almost three seconds behind. Increase the frequency and the number of empty requests grows with every connected client.</p>
       <p>Different clients may also disagree temporarily. One browser may already show a newly completed research node while another still shows the previous canvas.</p>
@@ -170,15 +154,8 @@
       <p>That is useful, but it is not the same as synchronizing shared application state.</p>
       <p>A research agent can narrate its work in a live side panel while the canvas remains unchanged. Only when the task completes does one final evidence node appear in the graph.</p>
       <p>Server-Sent Events are commonly used for this kind of interaction. They keep a one-way connection open from the server to the browser and allow the server to push new messages whenever they are available.</p>
-      <p>They fit:</p>
-      <ul>
-        <li>token streaming;</li>
-        <li>progress updates;</li>
-        <li>agent logs;</li>
-        <li>server notifications;</li>
-        <li>long-running operations where the browser mostly listens.</li>
-      </ul>
-      <p>Actions in the other direction — clicking, approving, dragging, cancelling — still travel through ordinary HTTP requests.</p>
+      <p>They fit token streaming, progress updates, agent logs, server notifications, and other long-running operations where the browser mostly listens.</p>
+      <p>Actions in the other direction—clicking, approving, dragging, cancelling—still travel through ordinary HTTP requests.</p>
       <p>Streaming solves an important UX problem: it prevents a long-running agent from feeling silent.</p>
       <p>It does not by itself solve:</p>
       <ul>
@@ -203,25 +180,10 @@
   }
 });</code></pre>
       <p>The visible handler is small. The system around it usually is not.</p>
-      <p>Once a product relies on persistent connections, several new responsibilities appear.</p>
-      <h3>Connection</h3>
-      <p>What happens after a disconnect? How does the client reconnect? How are missed, repeated, or out-of-order messages handled?</p>
-      <h3>Access</h3>
-      <p>Who may join a room? Which participants may read or modify a particular document?</p>
-      <h3>State</h3>
-      <p>Which events are temporary, and which become durable application data? How does a newly connected client reconstruct the current canvas?</p>
-      <h3>Concurrency</h3>
-      <p>What happens when the local interface has already applied an optimistic update and a conflicting server event arrives?</p>
-      <h3>Operations</h3>
-      <p>How are thousands of long-lived connections monitored, balanced, and recovered?</p>
+      <p>Once a product relies on persistent connections, several new responsibilities appear. The client has to reconnect after interruptions and account for missed, repeated, or out-of-order messages. The server has to decide who may join a room and which participants may read or modify a document.</p>
+      <p>The application also needs a durable state model. It must distinguish temporary events from persistent data and reconstruct the current canvas for a newly connected client. If the local interface has already applied an optimistic update, it needs a rule for reconciling a conflicting server event. At scale, the team must also monitor, balance, and recover thousands of long-lived connections.</p>
       <p>A WebSocket solves bidirectional delivery. It does not define the shared-state model that travels through it.</p>
-      <p>Custom WebSocket systems are still the correct choice when:</p>
-      <ul>
-        <li>the protocol is highly specialized;</li>
-        <li>the collaboration behavior is core to the product;</li>
-        <li>very low-level control is required;</li>
-        <li>the team is prepared to own the coordination infrastructure.</li>
-      </ul>
+      <p>Custom WebSocket systems are still the correct choice when the protocol is highly specialized, the collaboration behavior is core to the product, and the team needs low-level control. That choice also means being prepared to own the coordination infrastructure.</p>
       <p>The important distinction is not that WebSockets are primitive. It is that they solve the transport layer, while the application still owns the room.</p>
       <figure class="figure-breakout">
         <div class="animation-container" data-scene="D1" data-theme="dark" data-cursor-tags="boxed"></div>
@@ -238,25 +200,13 @@
       <p>There is no single universal form of conflict resolution. Different operations need different rules.</p>
       <h3>Last accepted value wins</h3>
       <p>Both changes are accepted, but only one final value remains.</p>
-      <p>This works well for inexpensive, continuous properties such as:</p>
-      <ul>
-        <li>node position;</li>
-        <li>zoom level;</li>
-        <li>object size;</li>
-        <li>temporary layout adjustments.</li>
-      </ul>
+      <p>This works well for inexpensive, continuous properties such as node position, zoom level, object size, and temporary layout adjustments.</p>
       <p>If the result is wrong, moving the node again is cheap.</p>
       <p>The action history can still record both attempts even though only one final coordinate survives.</p>
       <h3>Lock while editing</h3>
       <p>The first participant to begin an operation receives temporary ownership.</p>
       <p>Others can see that the object is in use but cannot modify it until the operation finishes.</p>
-      <p>This is useful when overlapping changes would be destructive or expensive, such as:</p>
-      <ul>
-        <li>deleting a section;</li>
-        <li>restructuring a document;</li>
-        <li>changing a workflow state;</li>
-        <li>approving a consequential agent action.</li>
-      </ul>
+      <p>This is useful when overlapping changes would be destructive or expensive: deleting a section, restructuring a document, changing a workflow state, or approving a consequential agent action.</p>
       <p>Locking prevents silent overwrite, but it introduces waiting.</p>
       <h3>Merge separate fields</h3>
       <p>Two participants may edit the same object without actually editing the same value.</p>
@@ -372,16 +322,7 @@ channel
         <li>row-level security can continue governing access;</li>
         <li>persistent and ephemeral information remain separate.</li>
       </ul>
-      <p>The tradeoff is that Supabase provides primitives rather than a complete synchronization model.</p>
-      <p>The application still decides:</p>
-      <ul>
-        <li>how optimistic updates work;</li>
-        <li>how local and remote changes reconcile;</li>
-        <li>which conflict rules apply;</li>
-        <li>how reconnects restore state;</li>
-        <li>how channels are created and cleaned up;</li>
-        <li>how high-frequency activity is throttled.</li>
-      </ul>
+      <p>The tradeoff is that Supabase provides primitives rather than a complete synchronization model. The application still decides how optimistic updates work, how local and remote changes reconcile, and which conflict rules apply. It also owns reconnection, channel lifecycle, and the throttling of high-frequency activity.</p>
       <p>Supabase is therefore a strong fit when a team wants to keep Postgres at the center and is comfortable assembling the collaboration behavior explicitly.</p>
       <figure class="figure-breakout">
         <table class="decision-table">
@@ -430,21 +371,9 @@ channel
       <pre><code>Subscribe to nodes and edges
 → subscribed result stays current</code></pre>
       <p>The complexity does not disappear. More of it moves into the synchronization layer.</p>
-      <p>For the canvas, the model could be:</p>
-      <ul>
-        <li>nodes and edges: transactions;</li>
-        <li>active participants and selections: presence;</li>
-        <li>temporary activity: topics.</li>
-      </ul>
+      <p>For the canvas, nodes and edges could use transactions, active participants and selections could use presence, and temporary activity could travel through topics.</p>
       <p>Optimistic local behavior is part of the client model. The user can move a node immediately without waiting for a round trip, while the underlying transaction is synchronized in the background.</p>
-      <p>That can substantially reduce application-specific code for:</p>
-      <ul>
-        <li>cache invalidation;</li>
-        <li>subscription handling;</li>
-        <li>optimistic updates;</li>
-        <li>local reconciliation;</li>
-        <li>keeping several views consistent.</li>
-      </ul>
+      <p>That can substantially reduce the application-specific code needed for cache invalidation, subscription handling, optimistic updates, local reconciliation, and keeping several views consistent.</p>
       <p>The tradeoff is architectural commitment.</p>
       <p>Adopting InstantDB means adopting more than a transport channel:</p>
       <ul>
@@ -470,36 +399,18 @@ channel
       <p>Supabase and InstantDB are not the only reasonable choices, and several relevant alternatives solve different parts of the architecture.</p>
       <h3>Liveblocks: collaboration added to an existing product</h3>
       <p>Liveblocks is a specialist collaboration layer rather than a general application database replacement.</p>
-      <p>It provides features such as:</p>
-      <ul>
-        <li>presence;</li>
-        <li>cursors;</li>
-        <li>shared storage;</li>
-        <li>comments;</li>
-        <li>collaborative React Flow integrations.</li>
-      </ul>
+      <p>It provides presence, cursors, shared storage, comments, and collaborative React Flow integrations.</p>
       <p>It fits teams that already have a backend and want to add a focused collaboration layer around canvases, documents, or discussions.</p>
       <h3>Yjs: data structures designed to merge</h3>
       <p>Yjs provides CRDT-based shared data types.</p>
       <p>Two disconnected participants can edit the same document independently and later merge their changes without replacing the entire document with one winner.</p>
-      <p>It fits cases where:</p>
-      <ul>
-        <li>offline work matters;</li>
-        <li>concurrent merge behavior is central;</li>
-        <li>rich-text or structured collaborative editing is a core requirement.</li>
-      </ul>
+      <p>It fits cases where offline work matters, concurrent merge behavior is central, or rich-text and structured collaborative editing are core requirements.</p>
       <p>Yjs sits at a lower level than Supabase or InstantDB. Teams still choose the networking, persistence, authentication, and operational layers around it.</p>
       <h3>Firebase: established database-to-client synchronization</h3>
       <p>Firebase Realtime Database and Firestore listeners remain established models for client applications that subscribe directly to changing backend data.</p>
       <p>They are useful reference points for products such as InstantDB because they demonstrate both the appeal and the long history of database-driven realtime interfaces.</p>
       <h3>Custom sync engine: collaboration as core infrastructure</h3>
-      <p>A custom sync engine makes sense when:</p>
-      <ul>
-        <li>collaboration semantics are part of the product's intellectual property;</li>
-        <li>no existing system fits the conflict model;</li>
-        <li>scale justifies specialized infrastructure;</li>
-        <li>the team needs complete control over ordering, validation, and persistence.</li>
-      </ul>
+      <p>A custom sync engine makes sense when collaboration semantics are part of the product's intellectual property, no existing system fits the conflict model, scale justifies specialized infrastructure, or the team needs complete control over ordering, validation, and persistence.</p>
       <p>Figma is the obvious example. It is also evidence of the amount of engineering this route requires.</p>
       <p class="sources"><strong>Sources:</strong> Liveblocks, <a href="https://liveblocks.io/docs/api-reference/liveblocks-react-flow">React Flow integration</a>; Liveblocks, <a href="https://liveblocks.io/docs">documentation</a>; Yjs documentation, <a href="https://docs.yjs.dev/">https://docs.yjs.dev/</a>; Firebase, <a href="https://firebase.google.com/docs/database">Realtime Database documentation</a>; Firebase, <a href="https://firebase.google.com/docs/firestore/query-data/listen">Cloud Firestore realtime listeners</a>; Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a></p>
     </section>
@@ -507,29 +418,9 @@ channel
     <section id="s14" aria-labelledby="s14-h">
       <h2 id="s14-h">Choose the layer the interface actually needs</h2>
       <p>There is no universal winner because these options answer different questions.</p>
-      <h3>Simple delivery</h3>
-      <dl class="compact-options">
-        <dt>Polling</dt>
-        <dd>Use when updates are infrequent, delay is acceptable, and the interface mainly reports task status.</dd>
-        <dt>SSE</dt>
-        <dd>Use when information mostly flows from the server to the browser, especially for agent output or progress.</dd>
-      </dl>
-      <h3>Realtime infrastructure</h3>
-      <dl class="compact-options">
-        <dt>Custom WebSockets</dt>
-        <dd>Use when the protocol is specialized enough to justify owning connection management, ordering, rooms, persistence, and reconciliation.</dd>
-        <dt>Supabase Realtime</dt>
-        <dd>Use when Postgres should remain the source of truth and the application can assemble collaboration from Broadcast, Presence, and database events.</dd>
-      </dl>
-      <h3>Higher-level synchronization</h3>
-      <dl class="compact-options">
-        <dt>InstantDB</dt>
-        <dd>Use when synchronized client state is central and the project can adopt an integrated, sync-oriented backend model.</dd>
-        <dt>Liveblocks</dt>
-        <dd>Use when collaboration should be added to an existing product without replacing its main backend.</dd>
-        <dt>Yjs</dt>
-        <dd>Use when concurrent merging and offline editing are defining requirements.</dd>
-      </dl>
+      <p>For simple delivery, use <strong>polling</strong> when updates are infrequent, delay is acceptable, and the interface mainly reports task status. Use <strong>SSE</strong> when information mostly flows from the server to the browser, especially for agent output or progress.</p>
+      <p>At the realtime infrastructure layer, <strong>custom WebSockets</strong> fit protocols specialized enough to justify owning connection management, ordering, rooms, persistence, and reconciliation. <strong>Supabase Realtime</strong> fits when Postgres should remain the source of truth and the application can assemble collaboration from Broadcast, Presence, and database events.</p>
+      <p>At a higher synchronization layer, <strong>InstantDB</strong> fits when synchronized client state is central and the project can adopt an integrated, sync-oriented backend model. <strong>Liveblocks</strong> adds collaboration to an existing product without replacing its main backend, while <strong>Yjs</strong> fits when concurrent merging and offline editing are defining requirements.</p>
       <figure class="figure-breakout">
         <table class="decision-table">
           <thead>
@@ -555,13 +446,7 @@ channel
     <section id="s15" aria-labelledby="s15-h">
       <h2 id="s15-h">Return to the canvas</h2>
       <p>Return to the crowded canvas from the beginning.</p>
-      <p>The same participants are still active:</p>
-      <ul>
-        <li>the user;</li>
-        <li>another human reviewer;</li>
-        <li>the research agent;</li>
-        <li>the structure agent.</li>
-      </ul>
+      <p>The same participants are still active: the user, another human reviewer, the research agent, and the structure agent.</p>
       <p>The amount of activity has not decreased.</p>
       <p>What changes is that the activity has become understandable.</p>
       <figure class="figure-breakout">

@@ -28,7 +28,7 @@
     scene.cursor('maya', { kind: 'human', x: 760, y: 50, label: 'Maya', opacity: 0 });
 
     scene.stamp('evidence-author', {
-      x: 230, y: 274, text: 'Research agent - proposed', kind: 'agent', opacity: 0,
+      x: 160, y: 360, text: 'Research agent - proposed', kind: 'agent', opacity: 0,
     });
     scene.stamp('review-state', {
       x: 520, y: 96, text: 'Reviewed by Maya', kind: 'human', opacity: 0,
@@ -45,8 +45,6 @@
     scene.drawEdge('question-idea', 'question', 'idea', 2250, 500, {
       fromAnchor: 'bottom', toAnchor: 'top',
     });
-    scene.appendActivity('You added Onboarding emails', 2450);
-
     scene.showCursor('research', 800, { fade: 180 });
     scene.moveCursor('research', { x: 760, y: 350 }, { x: 230, y: 315 }, 850, 950, { arc: 16 });
     scene.showIntent('research', 'ADDING EVIDENCE', 1550, {
@@ -59,24 +57,31 @@
     });
     scene.hideProgress('research-progress', 3500, { fade: 180 });
     scene.showStamp('evidence-author', 3600, { fade: 200 });
-    scene.appendActivity('Research agent proposed evidence', 3700);
     scene.commitProvisional('evidence', 4700);
     scene.setStampText('evidence-author', 'Research agent - added', 4700, { kind: 'agent' });
+    scene.appendActivity('Research agent added evidence', 4700);
+    scene.hideCursor('research', 5100, { fade: 220 });
+    scene.hideStamp('evidence-author', 5600, { fade: 220 });
 
     // The structure agent announces and highlights both endpoints first.
     scene.showCursor('structure', 5000, { fade: 180 });
-    scene.moveCursor('structure', { x: 750, y: 260 }, { x: 620, y: 188 }, 5000, 550, { arc: -8 });
-    scene.showIntent('structure', 'CONNECTING RELATED IDEAS', 5450, {
-      anchor: { x: 420, y: 260 }, duration: 2100,
+    // The marker lands on the line it is about to create, rather than beside
+    // either card, so the relation-building action has an unambiguous target.
+    // Agent cursors are 12px diamonds whose origin is top-left, so x:224
+    // centers the marker on the x:230 relationship line.
+    scene.moveCursor('structure', { x: 750, y: 260 }, { x: 224, y: 250 }, 5000, 650, { arc: -8 });
+    scene.showIntent('structure', 'CONNECTING IDEAS', 5450, {
+      anchor: { x: 560, y: 315 }, duration: 2100,
     });
     scene.selectNode('evidence', 5750, true, { color: '#5e6ad2' });
-    scene.selectNode('related', 5750, true, { color: '#5e6ad2' });
-    scene.drawEdge('evidence-related', 'evidence', 'related', 6500, 650, {
-      fromAnchor: 'right', toAnchor: 'bottom',
+    scene.selectNode('idea', 5750, true, { color: '#5e6ad2' });
+    scene.click('structure', 'idea', 6200, { pressDuration: 180 });
+    scene.drawEdge('evidence-idea', 'evidence', 'idea', 6450, 650, {
+      fromAnchor: 'top', toAnchor: 'bottom', straight: true,
     });
     scene.selectNode('evidence', 7350, false);
-    scene.selectNode('related', 7350, false);
-    scene.appendActivity('Structure connected evidence', 7150);
+    scene.selectNode('idea', 7350, false);
+    scene.hideCursor('structure', 7450, { fade: 220 });
 
     // A second human reviews the top-level question without mutating it.
     scene.showCursor('maya', 7600, { fade: 180 });
@@ -86,44 +91,46 @@
     });
     scene.selectNode('question', 8250, true, { color: '#a0a0ab' });
     scene.showStamp('review-state', 8800, { fade: 200 });
-    scene.appendActivity('Maya reviewed question', 8900);
     scene.selectNode('question', 9450, false);
-    scene.moveCursor('maya', { x: 520, y: 58 }, { x: 700, y: 90 }, 9300, 500, { arc: 8 });
-    scene.moveCursor('research', { x: 230, y: 315 }, { x: 390, y: 340 }, 9300, 500, { arc: -5 });
+    scene.hideCursor('maya', 9500, { fade: 220 });
+    scene.hideStamp('review-state', 9700, { fade: 220 });
 
     // You edit the idea just as Structure targets it for a layout change.
     scene.moveCursor('you', { x: 230, y: 188 }, { x: 165, y: 188 }, 9700, 450, { arc: 4 });
     scene.selectNode('idea', 10150, true, { color: '#f1f1f3' });
     scene.setLabel('idea', 'Onboarding email sequence', 10500);
     scene.moveNode('idea', { x: IDEA.x, y: IDEA.y }, IDEA_EDITED, 10500, 650, { easing: 'easeInOut' });
-    scene.appendActivity('You edited the idea', 11150);
 
-    scene.moveCursor('structure', { x: 620, y: 188 }, { x: 310, y: 230 }, 10300, 750, { arc: 10 });
+    scene.showCursor('structure', 10000, { fade: 180 });
+    // The structure agent points at the very card being edited. Its intended
+    // destination is separately represented by the dashed layout target.
+    scene.moveCursor('structure', { x: 224, y: 250 }, { x: 245, y: 188 }, 10100, 550, { arc: 10 });
     scene.createNode('agent-target', 10900, {
       x: 500, y: 250, w: 210, h: 42, label: 'Agent layout target', kind: 'ghost', duration: 220,
     });
     scene.selectNode('idea', 11100, true, { color: '#5e6ad2' });
-    scene.showIntent('structure', 'MOVE IDEA TO LAYOUT GROUP', 11100, {
+    scene.click('structure', 'idea', 11100, { pressDuration: 260 });
+    scene.showIntent('structure', 'MOVE THIS IDEA TO LAYOUT GROUP', 11100, {
       anchor: { x: 430, y: 152 }, duration: 1900,
+    });
+    scene.drawEdge('proposed-layout-move', 'idea', 'agent-target', 11350, 450, {
+      fromAnchor: 'right', toAnchor: 'left', straight: true,
     });
 
     // Conflict policy is shown before the rejected agent mutation disappears.
-    scene.showIntent(null, 'POLICY - ACTIVE HUMAN EDIT WINS', 12700, {
+    scene.showIntent(null, 'AGENT MOVE BLOCKED - ACTIVE HUMAN EDIT WINS', 12700, {
       anchor: { x: 410, y: 400 }, duration: 2800, fade: 180,
     });
     scene.pulse(310, 230, 12700, { radius: 34, duration: 800, color: '#5e6ad2' });
+    scene.hideEdge('proposed-layout-move', 12700, { duration: 220 });
     scene.removeNode('agent-target', 13500, { duration: 260 });
     scene.selectNode('idea', 13600, false);
     scene.appendActivity('Policy: human edit kept; agent move skipped', 13600);
+    scene.hideCursor('structure', 14300, { fade: 220 });
     scene.showButton('undo', 15800, { fade: 220 });
 
-    // Park every participant in a readable, idle final state.
+    // Settle on the current human, the resolved state, history, and undo.
     scene.moveCursor('you', { x: 165, y: 188 }, { x: 80, y: 250 }, 15100, 550, { arc: 5 });
-    scene.moveCursor('research', { x: 390, y: 340 }, { x: 360, y: 340 }, 15100, 350, { arc: -3 });
-    scene.moveCursor('structure', { x: 310, y: 230 }, { x: 650, y: 225 }, 15100, 700, { arc: -10 });
-    scene.showIntent(null, 'CONFLICT RESOLVED - SHARED STATE STABLE', 16500, {
-      anchor: { x: 400, y: 430 }, duration: 3500, fade: 220,
-    });
 
     return scene.build();
   }

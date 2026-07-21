@@ -1,0 +1,664 @@
+/* ==========================================================================
+   Design tokens — DESIGN.md §2–4
+   ========================================================================== */
+
+:root {
+  /* Color */
+  --bg:            #ffffff;
+  --bg-alt:        #fafafa;
+  --surface:       #f4f4f5;
+  --text:          #0f0f14;
+  --text-muted:    #6b6b76;
+  --text-dim:      #a0a0ab;
+  --border:        #e4e4e7;
+  --border-strong: #d4d4d8;
+  --accent:        #5e6ad2;
+  --accent-hover:  #4e5acb;
+
+  /* Type */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Berkeley Mono', 'SF Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+
+  --fs-11: 11px;
+  --fs-13: 13px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-18: 18px;
+  --fs-22: 22px;
+  --fs-28: 28px;
+  --fs-36: 36px;
+  --fs-48: 48px;
+  --fs-64: 64px;
+
+  /* Spacing (4px base unit) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+
+  /* Layout */
+  --measure: 680px;
+  --breakout: 960px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-16);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   Article shell & reading column
+   ========================================================================== */
+
+article {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--sp-16) var(--sp-4) 140px;
+}
+
+section {
+  margin-bottom: var(--sp-16);
+}
+
+section > h2 {
+  margin-bottom: var(--sp-6);
+}
+
+section > p + p {
+  margin-top: var(--sp-3);
+}
+
+section > :is(p, ul, ol, pre) + h3 {
+  margin-top: var(--sp-6);
+}
+
+section > h3 {
+  margin-top: var(--sp-6);
+  margin-bottom: var(--sp-2);
+}
+
+section > h3 + :is(p, ul, ol, pre) {
+  margin-top: 0;
+}
+
+section > h3 + .compact-options {
+  margin-top: 0;
+}
+
+section > :is(ul, ol) + p,
+section > pre + p {
+  margin-top: var(--sp-4);
+}
+
+section > :is(p, pre) + :is(ul, ol),
+section > :is(ul, ol) + :is(ul, ol) {
+  margin-top: var(--sp-4);
+}
+
+section > :is(ul, ol) {
+  padding-left: 1.35rem;
+}
+
+section > :is(ul, ol) li + li {
+  margin-top: var(--sp-2);
+}
+
+.compact-options {
+  display: grid;
+  grid-template-columns: minmax(120px, max-content) 1fr;
+  column-gap: var(--sp-4);
+  row-gap: var(--sp-2);
+}
+
+.compact-options + h3 {
+  margin-top: var(--sp-6);
+}
+
+.compact-options dt {
+  font-weight: 600;
+}
+
+.compact-options dd {
+  color: var(--text);
+}
+
+section > .draft-placeholder + .draft-placeholder {
+  margin-top: var(--sp-4);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.article-header {
+  text-align: center;
+  margin-bottom: var(--sp-16);
+}
+
+h1 {
+  font-size: var(--fs-48);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.1;
+  margin-bottom: var(--sp-4);
+}
+
+.subtitle {
+  font-size: var(--fs-18);
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto var(--sp-6);
+}
+
+.byline {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* ==========================================================================
+   Chips (kbd-style)
+   ========================================================================== */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-11);
+  line-height: 1;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: var(--sp-1) var(--sp-2);
+  transition: border-color 180ms var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--border-strong);
+}
+
+/* ==========================================================================
+   Headings & type scale
+   ========================================================================== */
+
+h2 {
+  font-size: var(--fs-28);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+  margin-top: var(--sp-2);
+}
+
+h3 {
+  font-size: var(--fs-16);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+p {
+  font-size: var(--fs-16);
+  color: var(--text);
+}
+
+strong, b {
+  font-weight: 600;
+}
+
+em, i {
+  font-style: normal;
+  font-weight: 600;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-color: var(--border-strong);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+a.scene-ref {
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Draft placeholder prose
+   ========================================================================== */
+
+.draft-placeholder {
+  color: var(--text);
+}
+
+.draft-placeholder:first-of-type::before {
+  content: 'Draft';
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--fs-11);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: var(--sp-2);
+}
+
+/* ==========================================================================
+   Breakout figures — the article's signature layout move
+   ========================================================================== */
+
+.figure-breakout {
+  width: 100%;
+  max-width: var(--breakout);
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--sp-12);
+  margin-bottom: var(--sp-12);
+}
+
+.figure-small {
+  max-width: 560px;
+}
+
+figcaption {
+  font-size: var(--fs-13);
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: var(--sp-2);
+  text-align: center;
+}
+
+.sources {
+  font-size: var(--fs-13);
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.sources strong {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.sources a {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Animation canvas — DESIGN.md §5
+   ========================================================================== */
+
+.animation-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 800 / 450;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Scene label top-right corner — non-interactive, subtle. */
+.animation-container::before {
+  content: attr(data-scene);
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  z-index: 10;
+  font: 10px "Berkeley Mono", "SF Mono", ui-monospace, monospace;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.animation-container svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Dark canvas variant (experimental) — DESIGN.md §5 "Dark canvas variant".
+   Only the canvas recolors; the article page around it stays light. The
+   Renderer maps its internal palette from this container's data-theme
+   attribute (or a `theme: 'dark'` constructor option). */
+.animation-container[data-theme='dark'] {
+  background: #0f0f14;
+  border-color: #2a2a32;
+}
+
+.animation-container[data-theme='dark']::before {
+  color: #8a8a96;
+}
+
+
+
+.animation-container.reduced-motion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: auto;
+  min-height: 200px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-13);
+  color: var(--text-dim);
+  text-align: center;
+  padding: var(--sp-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation-container {
+    aspect-ratio: auto;
+    min-height: 200px;
+  }
+}
+
+/* ==========================================================================
+   Code blocks
+   ========================================================================== */
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4);
+  overflow-x: auto;
+  margin-top: var(--sp-6);
+}
+
+section > pre + pre {
+  margin-top: var(--sp-4);
+}
+
+code {
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Static diagrams — layer cards (section 12)
+   ========================================================================== */
+
+.layer-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.layer-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-4);
+}
+
+.layer-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--sp-6);
+  transition: border-color 180ms var(--ease);
+}
+
+.layer-card:hover {
+  border-color: var(--border-strong);
+}
+
+.layer-card h3 {
+  margin-bottom: var(--sp-2);
+}
+
+.layer-position {
+  font-size: var(--fs-14);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-4);
+}
+
+.layer-fit {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.layer-fit li {
+  font-size: var(--fs-14);
+  color: var(--text);
+  padding-left: var(--sp-3);
+  position: relative;
+}
+
+.layer-fit li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--border-strong);
+}
+
+.layer-rows {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.layer-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-6);
+  background: var(--bg);
+}
+
+.layer-row + .layer-row {
+  border-top: 1px solid var(--border);
+}
+
+.layer-row-name {
+  font-weight: 600;
+  font-size: var(--fs-14);
+}
+
+.layer-row-desc {
+  font-size: var(--fs-14);
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Decision table (section 13)
+   ========================================================================== */
+
+.decision-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.decision-table th,
+.decision-table td {
+  text-align: left;
+  font-size: var(--fs-14);
+  padding: var(--sp-3) var(--sp-4);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.decision-table thead th {
+  font-weight: 600;
+  font-size: var(--fs-13);
+  color: var(--text-muted);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.decision-table td:last-child,
+.decision-table th:last-child {
+  font-weight: 500;
+  white-space: nowrap;
+  width: 200px;
+}
+
+.decision-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.decision-table tbody tr:hover td {
+  background: var(--bg-alt);
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .figure-breakout {
+    max-width: 100%;
+    width: calc(100% + var(--sp-8));
+    margin-left: calc(-1 * var(--sp-4));
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  article {
+    padding: var(--sp-12) var(--sp-4) var(--sp-16);
+  }
+
+  h1 {
+    font-size: var(--fs-36);
+  }
+
+  .subtitle {
+    font-size: var(--fs-16);
+  }
+
+  h2 {
+    font-size: var(--fs-22);
+  }
+
+  .figure-breakout {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Keep the closing workspace's SVG labels readable after the 800px scene
+     is scaled into a narrow viewport. HTML presence labels already retain
+     their CSS pixel size; this brings the graph labels closer to parity. */
+  .animation-container[data-scene='V5'] svg text {
+    font-size: 15px;
+  }
+
+  .animation-container[data-scene='V5'] .animation-overlay > div {
+    font-size: 9px !important;
+  }
+
+  .layer-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .layer-row {
+    grid-template-columns: 1fr;
+    gap: var(--sp-1);
+  }
+
+  .compact-options {
+    grid-template-columns: 1fr;
+    row-gap: var(--sp-1);
+  }
+
+  .compact-options dd + dt {
+    margin-top: var(--sp-3);
+  }
+
+  .decision-table,
+  .decision-table thead,
+  .decision-table tbody,
+  .decision-table tr {
+    display: block;
+  }
+
+  .decision-table thead {
+    display: none;
+  }
+
+  .decision-table tr {
+    padding: var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .decision-table td {
+    display: block;
+    border: none;
+    padding: var(--sp-1) 0;
+  }
+
+  .decision-table td:last-child {
+    width: auto;
+    color: var(--accent);
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

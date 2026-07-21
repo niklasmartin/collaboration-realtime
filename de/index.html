@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KI-Agenten im Frontend: Interfaces als Multiplayer-Systeme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <article id="story">
+    <header class="article-header">
+      <h1>KI-Agenten im Frontend: Warum Interfaces zu Multiplayer-Systemen werden</h1>
+      <p class="subtitle">Sobald Agenten selbstständig Anwendungszustände verändern, reicht technische Synchronisierung nicht mehr aus. Gute Interfaces machen Urheberschaft, Absicht und Konflikte sichtbar.</p>
+      <div class="byline">
+        <span class="chip">Cosonic</span>
+        <span class="chip">12 Min. Lesezeit</span>
+        <span class="chip">Entwurf - Veröffentlichungstermin offen</span>
+      </div>
+    </header>
+
+    <section id="s1" aria-labelledby="s1-h">
+      <h2 id="s1-h">Solange die Software nur reagierte</h2>
+      <p>Software-Interfaces folgten lange einem verlässlichen Prinzip: Ein Mensch löste eine Aktion aus, die Anwendung reagierte darauf. Ob es um einen Button, ein Formular, eine Tabellenzelle oder ein Objekt auf einem Canvas ging, war für dieses Interaktionsmodell unerheblich.</p>
+      <figure class="figure-breakout" id="fig-v1">
+        <div class="animation-container" data-scene="V1" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Eine Aktion hat einen eindeutigen Urheber.</figcaption>
+      </figure>
+      <p>Damit waren Ursache und Wirkung eindeutig. Das Interface musste keine Urheberschaft ausweisen, „Rückgängig“ bezog sich auf die letzte Aktion des Nutzers und eine Ladeanzeige signalisierte die Verarbeitung seiner Anfrage. Selbst Anwendungen für große Teams behielten dieses Modell lokal bei: Viele Menschen konnten auf dasselbe Projekt zugreifen, auf dem einzelnen Bildschirm gab es jedoch genau einen aktiven Akteur.</p>
+      <p>Die Grenze war klar: Der Mensch handelte, die Software wartete.</p>
+    </section>
+
+    <section id="s2" aria-labelledby="s2-h">
+      <h2 id="s2-h">Vom Werkzeug zum Akteur</h2>
+      <p>KI-Agenten brechen mit dieser Rollenverteilung. Sie beantworten nicht nur einen Request, sondern arbeiten nach dem auslösenden Klick selbstständig weiter: Sie prüfen Informationen, treffen Entscheidungen, erzeugen Objekte und verändern dabei dasselbe Interface, in dem der Nutzer weiterhin arbeitet. Damit ist der Mensch nicht mehr der einzige aktive Teilnehmer.</p>
+      <figure class="figure-breakout" id="fig-v2">
+        <div class="animation-container" data-scene="V2" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Sie geben „Onboarding-E-Mails“ ein, während der Agent nachdenkt. Dann gleitet Ihre Karte nach links, um Platz für seinen Vorschlag zu schaffen. Später wird die Recherche in Ihre Karte eingeordnet und bleibt gestrichelt dargestellt, bis Sie sie bestätigen.</figcaption>
+      </figure>
+      <p>Aus dieser Verschiebung entstehen Fragen, die klassische Request-Response-Systeme nicht beantworten mussten: Wer hat einen neuen Knoten erstellt? Handelt es sich um einen fertigen Beitrag oder um einen Vorschlag? Darf der Nutzer ihn bearbeiten, während der Agent noch arbeitet? Und auf wessen Aktion bezieht sich „Rückgängig“? Im Kern geht es nicht um KI, sondern um geteilte Kontrolle.</p>
+      <p>Automatisierung ist zwar nicht neu, blieb bisher aber meist hinter dem Interface verborgen. Eine Berechnung lief, ein Workflow endete oder ein Server lieferte ein Ergebnis. Agenten arbeiten dagegen zunehmend im sichtbaren Anwendungszustand. Sie bearbeiten dieselben Objekte wie der Nutzer und hinterlassen Entwürfe, Beziehungen, Kommentare oder nur teilweise abgeschlossene Arbeit. Aus einem Bedienfeld wird so ein gemeinsamer Workspace.</p>
+      <p>Das Interface muss diese Rollen kenntlich machen. In <a href="#fig-v2" class="scene-ref">V2</a> besitzen der Nutzerbeitrag und der Agentenvorschlag deshalb unterschiedliche Urheber, Zustände und Verbindlichkeitsgrade. Der Vorschlag ersetzt bestehende Arbeit nicht stillschweigend; zusätzliche Recherche bleibt als vorläufig markiert, bis der Nutzer sie bestätigt. Sichtbar werden muss nicht nur, <strong>was sich geändert hat</strong>, sondern auch, <strong>wer dafür verantwortlich ist</strong> und <strong>ob die Änderung bereits verbindlich ist</strong>.</p>
+      <p>Die Forschung zu Mixed-Initiative Interfaces beschäftigt sich seit Langem mit Systemen, in denen Menschen und Software gemeinsam eine Aufgabe steuern. Neu ist die Verbreitung des Musters: Rechercheassistenten, Coding-Agenten, Designwerkzeuge und Workflow-Agenten bewegen sich heute zwischen bedientem Werkzeug und eigenständigem Teammitglied. Dabei ist ein einzelner Nutzer mit einem einzelnen Agenten noch der einfachste Fall.</p>
+      <p class="sources"><strong>Quellen:</strong> Eric Horvitz, <a href="https://www.microsoft.com/en-us/research/publication/principles-mixed-initiative-user-interfaces/">Principles of Mixed-Initiative User Interfaces</a>; Microsoft Research, <a href="https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/">Guidelines for Human-AI Interaction</a></p>
+    </section>
+
+    <section id="s3" aria-labelledby="s3-h">
+      <h2 id="s3-h">Wenn Agenten auf Teams treffen</h2>
+      <p>In produktiver Software bleibt es selten bei dieser Zweierbeziehung. Projekte haben Verantwortliche und Reviewer, Dokumente haben Autoren und Redakteure, an Entscheidungen arbeiten Fachleute aus mehreren Disziplinen. Agenten betreten daher keinen leeren Raum, sondern einen bereits geteilten Arbeitskontext. Meist kommt zudem mehr als ein Agent hinzu.</p>
+      <p>So kann ein Rechercheagent Belege sammeln, während ein Planungsagent sie neu ordnet. Gleichzeitig markiert ein Compliance-Agent ein Risiko, ein menschlicher Reviewer bearbeitet den betreffenden Abschnitt und eine weitere Person prüft den Projektfortschritt. Alle handeln unabhängig voneinander, mit eigenen Zuständigkeiten, unterschiedlichem Timing und jeweils nur einem Teil des Gesamtkontexts.</p>
+      <figure class="figure-breakout" id="fig-v3">
+        <div class="animation-container" data-scene="V3" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Zwei Menschen und zwei Agenten können unabhängig arbeiten, bis sich ihre Absichten auf dasselbe Objekt richten. Hier greifen Sie und der Strukturagent nach derselben Karte und ziehen sie in unvereinbare Richtungen.</figcaption>
+      </figure>
+      <p>Die Herausforderung besteht nicht bloß in mehr Cursorn, Knoten oder Updates, sondern in der verlorenen Eindeutigkeit von Ursache und Wirkung. Ein Knoten bewegt sich, ohne dass der aktuelle Nutzer ihn berührt. Eine Kante erscheint, während er einen anderen Teil des Canvas betrachtet. Zwei Akteure treffen jeweils nachvollziehbare Entscheidungen, die sich im finalen Zustand dennoch gegenseitig ausschließen.</p>
+      <p>Die Annahmen, die die ursprüngliche Oberfläche einfach machten, gelten nicht mehr:</p>
+      <ul>
+        <li>Es gibt nicht mehr für jede Aktion einen eindeutigen Urheber.</li>
+        <li>Änderungen erfolgen nicht zwangsläufig als Reaktion auf die Eingabe des aktuellen Nutzers.</li>
+        <li>Die Oberfläche kann nicht voraussetzen, dass alle Teilnehmer denselben Kontext haben.</li>
+        <li>Rückgängig kann die Arbeit eines anderen betreffen.</li>
+        <li>Eine Änderung kann technisch korrekt sein und trotzdem im falschen Moment eintreffen.</li>
+        <li>Zwei Teilnehmer können versuchen, dasselbe Objekt gleichzeitig zu ändern.</li>
+      </ul>
+      <p>Damit wird das Agenten-Interface zum Multiplayer-System. Gemeint sind nicht mehrere sichtbare Cursor, sondern mehrere unabhängige Akteure, die denselben Zustand verändern. Das System muss dabei zwei Aufgaben erfüllen: Es muss allen Beteiligten einen konsistenten Zustand liefern und zugleich erklären, wie dieser Zustand entsteht. Dazu gehören Anwesenheit, aktuelle Absicht, vorläufige Änderungen, Berechtigungen und der Umgang mit überschneidenden Aktionen. Realtime-Technologien konzentrieren sich vor allem auf die erste Aufgabe; das anspruchsvollere Interfaceproblem beginnt bei der zweiten.</p>
+      <p class="sources"><strong>Quellen:</strong> Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a>; Figma, <a href="https://www.figma.com/blog/making-multiplayer-more-reliable/">Making multiplayer more reliable</a></p>
+    </section>
+
+    <section id="s4" aria-labelledby="s4-h">
+      <h2 id="s4-h">Synchronisiert heißt noch nicht verständlich</h2>
+      <p>Auch ein technisch einwandfrei synchronisierter Canvas kann unberechenbar wirken. Knoten wechseln ohne sichtbaren Auslöser ihre Position, Verbindungen erscheinen und Beschriftungen ändern sich während des Lesens. Der Zustand ist auf allen Clients korrekt, doch der Nutzer erkennt weder den Urheber einer Änderung noch ihren Bearbeitungsstand. Damit bleibt unklar, ob er eingreifen kann oder ob seine eigene Arbeit gleich überschrieben wird.</p>
+      <figure class="figure-breakout" id="fig-v4">
+        <div class="animation-container" data-scene="V4" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Das Dokument ändert sich auf beiden Seiten identisch. Signale auf der rechten Seite liefern die fehlende Erklärung: Wer handelt, was ist vorläufig, worauf richtet sich die Aufmerksamkeit und was ist gerade geschehen?</figcaption>
+      </figure>
+      <p>Die zugrunde liegenden Daten können in beiden Varianten identisch sein. Den Unterschied macht die Erklärung im Interface: sichtbare Cursor und Auswahlzustände, angekündigte Agentenaktionen, klar markierte Entwürfe sowie eine nachvollziehbare Zuordnung abgeschlossener Änderungen. Realtime-Synchronisierung schafft damit zwar die technische Grundlage für einen gemeinsamen Workspace, nicht aber dessen Verständlichkeit.</p>
+      <p>Fünf Fragen trennen synchronisierten State von brauchbarer Zusammenarbeit:</p>
+      <ol>
+        <li><strong>Zustand</strong> - Was enthält das gemeinsame Dokument?</li>
+        <li><strong>Präsenz</strong> - Wer ist gerade hier?</li>
+        <li><strong>Absicht</strong> - Was tut jeder Teilnehmer gerade oder als Nächstes?</li>
+        <li><strong>Berechtigung</strong> - Wer darf welche Objekte ändern?</li>
+        <li><strong>Konflikt</strong> - Was geschieht, wenn zwei Änderungen dieselbe Sache betreffen?</li>
+      </ol>
+      <p>Der Transport von Daten zwischen zwei Rechnern beantwortet nur die erste Frage. Erst die übrigen vier machen aus einem schnellen System ein Interface, dem Menschen vertrauen können.</p>
+      <p class="sources"><strong>Quellen:</strong> Microsoft Research, <a href="https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/">Guidelines for Human-AI Interaction</a>; Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a></p>
+    </section>
+
+    <section id="s5" aria-labelledby="s5-h">
+      <h2 id="s5-h">Aus dem Interfaceproblem wird ein Problem verteilter Systeme</h2>
+      <p>Sobald mehrere Akteure denselben Workspace verändern, muss die Architektur Updates nicht nur verteilen, sondern gleichzeitige Änderungen auch zu einem konsistenten Zustand zusammenführen. Beides hängt zusammen, ist aber nicht dasselbe: Eine schnelle Verbindung stellt zwei widersprüchliche Bearbeitungen zuverlässig zu, entscheidet jedoch nicht, welche sich durchsetzt. Umgekehrt kann eine Datenbank jede Aktion korrekt speichern, ohne dem Nutzer zu erklären, warum sich ein Knoten vor seinen Augen verschiebt.</p>
+      <p>Die technischen Optionen setzen deshalb auf unterschiedlichen Ebenen an. Manche transportieren Events, manche synchronisieren State und manche führen konkurrierende Änderungen zusammen. Keine davon ersetzt klar definierte Interaktions- und Konfliktregeln.</p>
+    </section>
+
+    <section id="s6" aria-labelledby="s6-h">
+      <h2 id="s6-h">Polling: „Gibt es etwas Neues?“</h2>
+      <p>Die einfachste Form der Aktualisierung ist Polling: Der Browser fordert den aktuellen Zustand an, wartet ein festes Intervall und fragt erneut.</p>
+      <pre><code>const timer = setInterval(async () =&gt; {
+  const state = await fetch('/api/jobs/42').then((res) =&gt; res.json());
+  render(state);
+}, 3000);</code></pre>
+      <p>Gerade diese Einfachheit macht Polling für viele Aufgaben zur richtigen Wahl. Hintergrundexporte, länger laufende Recherchejobs oder Benachrichtigungszähler vertragen einige Sekunden Verzögerung und benötigen keine dauerhafte Verbindung. Das Backend kann weitgehend zustandslos bleiben, nutzt gewöhnliches HTTP und produziert vertraute Fehlerbilder.</p>
+      <p>Der Preis dafür sind leere Anfragen und eine Verzögerung, die direkt vom Intervall abhängt. Bei drei Sekunden Polling kann ein Client fast drei Sekunden hinter dem aktuellen Zustand liegen; eine höhere Frequenz steigert dagegen die Last mit jedem verbundenen Client. Zwischenzeitlich können zwei Browser deshalb unterschiedliche Versionen desselben Canvas anzeigen.</p>
+      <p>Polling beantwortet damit zuverlässig die Frage:</p>
+      <p class="callout">Ist die Aufgabe abgeschlossen?</p>
+      <p>Für unmittelbare Koordination reicht es dagegen nicht:</p>
+      <p class="callout">Was tut ein anderer Teilnehmer gerade mit diesem Objekt?</p>
+    </section>
+
+    <section id="s7" aria-labelledby="s7-h">
+      <h2 id="s7-h">Streaming zeigt Fortschritt, synchronisiert aber keinen Workspace</h2>
+      <p>Streaming macht laufende Arbeit unmittelbar sichtbar: Antworten treffen Token für Token ein, Fortschrittsmeldungen erscheinen fortlaufend und ein lang laufender Agent wirkt nicht länger stumm. Einen gemeinsamen Anwendungszustand synchronisiert der Stream deshalb noch nicht. Ein Rechercheagent kann seine Arbeit in einer Seitenleiste protokollieren, während der Canvas unverändert bleibt und erst am Ende einen fertigen Belegknoten erhält.</p>
+      <p>Für solche unidirektionalen Datenflüsse eignen sich Server-Sent Events (SSE). Der Server hält eine Verbindung zum Browser offen und sendet darüber Token, Statusmeldungen, Agentenprotokolle oder Benachrichtigungen. Aktionen in Gegenrichtung, etwa Genehmigen, Ziehen oder Abbrechen, laufen weiterhin über reguläre HTTP-Requests.</p>
+      <p>Für sich genommen löst Streaming jedoch weder:</p>
+      <ul>
+        <li>einen gemeinsamen Dokumentzustand;</li>
+        <li>die Präsenz der Teilnehmer;</li>
+        <li>gleichzeitige Bearbeitung;</li>
+        <li>Konfliktlösung;</li>
+        <li>synchronisierte optimistische Updates.</li>
+      </ul>
+      <p>Ein Chatfenster kann vollständig live sein, während der Arbeitsbereich daneben weiterhin nur für einen Nutzer ausgelegt ist.</p>
+    </section>
+
+    <section id="s8" aria-labelledby="s8-h">
+      <h2 id="s8-h">WebSockets lösen den Transport, nicht die Zusammenarbeit</h2>
+      <p>WebSockets ersetzen die regelmäßige Abfrage durch einen dauerhaften bidirektionalen Kanal. Verschiebt ein Teilnehmer einen Knoten, kann der Server das Event unmittelbar an alle anderen verbundenen Clients weiterleiten.</p>
+      <pre><code>socket.addEventListener('message', (event) =&gt; {
+  const message = JSON.parse(event.data);
+
+  if (message.type === 'node.moved') {
+    applyRemoteNodePosition(message.nodeId, message.position);
+  }
+});</code></pre>
+      <p>Der sichtbare Handler bleibt klein, das umgebende System jedoch nicht. Clients müssen Verbindungen wiederaufbauen und mit verpassten, doppelten oder vertauschten Nachrichten umgehen. Der Server regelt den Zugang zu Räumen und Dokumenten. Hinzu kommen ein persistentes Zustandsmodell, die Trennung flüchtiger Events von dauerhaften Daten und der Abgleich optimistischer Updates mit widersprüchlichen Server-Events. Bei großer Skalierung muss das Team außerdem Tausende langlebiger Verbindungen überwachen und nach Ausfällen wiederherstellen.</p>
+      <p>WebSockets lösen somit die bidirektionale Zustellung, definieren aber weder das Shared-State-Modell noch dessen Konfliktregeln. Ein eigenes WebSocket-System passt zu hoch spezialisierten Protokollen und Produkten, bei denen Kollaboration zur Kernfunktion gehört. Das Team übernimmt damit allerdings auch die gesamte Koordinationsinfrastruktur.</p>
+      <figure class="figure-breakout" id="fig-d1">
+        <div class="animation-container" data-scene="D1" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Polling entdeckt Änderungen bei der nächsten Anfrage. SSE überträgt Serverereignisse über einen offenen Stream. WebSockets transportieren Nachrichten in beide Richtungen, sobald eine Seite sie sendet.</figcaption>
+      </figure>
+      <p class="sources"><strong>Quellen:</strong> MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval">Window: setInterval() method</a>; MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events">Using server-sent events</a>; MDN, <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">The WebSocket API</a>; Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a>; Figma, <a href="https://www.figma.com/blog/making-multiplayer-more-reliable/">Making multiplayer more reliable</a>; InstantDB, <a href="https://www.instantdb.com/essays/architecture">A backend for AI-coded apps</a> (vom Anbieter verfasst)</p>
+    </section>
+
+    <section id="s9" aria-labelledby="s9-h">
+      <h2 id="s9-h">Zustellung ist noch keine Konfliktlösung</h2>
+      <p>Wenn ein Nutzer und ein Strukturagent denselben Knoten nahezu gleichzeitig in unterschiedliche Richtungen verschieben, können beide Events schnell und zuverlässig eintreffen. Gelöst ist der Konflikt damit nicht. Welche Änderung bestehen bleibt, hängt von der Semantik des jeweiligen Vorgangs ab; eine universelle Strategie gibt es nicht.</p>
+      <h3>Der zuletzt akzeptierte Wert gewinnt</h3>
+      <p>Bei leicht korrigierbaren Eigenschaften wie Knotenposition, Zoomstufe oder Objektgröße kann der zuletzt akzeptierte Wert gewinnen. Beide Aktionen bleiben im Verlauf nachvollziehbar, im aktuellen Zustand existiert jedoch nur eine Koordinate. Ein falsches Ergebnis lässt sich mit geringem Aufwand erneut ändern.</p>
+      <h3>Während der Bearbeitung sperren</h3>
+      <p>Bei destruktiven oder teuren Vorgängen ist eine temporäre Sperre sinnvoll. Wer zuerst mit dem Löschen eines Abschnitts, der Umstrukturierung eines Dokuments oder einer folgenreichen Freigabe beginnt, erhält vorübergehend die Kontrolle. Andere sehen die Sperre, müssen bis zu ihrer Freigabe allerdings warten.</p>
+      <h3>Getrennte Felder zusammenführen</h3>
+      <p>Nicht jede gleichzeitige Bearbeitung ist ein echter Konflikt. Ändert ein Nutzer den Titel eines Knotens, während ein Agent dessen Status setzt, können beide Updates bestehen bleiben. Viele vermeintliche Konflikte verschwinden, sobald das Datenmodell Änderungen auf Feldebene statt auf Objektebene erfasst.</p>
+      <p>Ein belastbares Interface benötigt in der Regel mehrere Regeln zugleich:</p>
+      <ul>
+        <li>„Letzter Schreibvorgang gewinnt“ für Positionen;</li>
+        <li>Zusammenführung auf Eigenschaftsebene für unabhängige Felder;</li>
+        <li>Sperren für destruktive Vorgänge;</li>
+        <li>Vorschau und Genehmigung für folgenreiche Agentenaktionen;</li>
+        <li>CRDT-basierte Zusammenführung, wenn wirklich gleichzeitige Bearbeitungen kombiniert werden müssen.</li>
+      </ul>
+      <p>Entscheidend ist daher nicht eine Konfliktstrategie für die gesamte Anwendung, sondern die passende Regel für jeden Vorgang.</p>
+      <figure class="figure-breakout" id="fig-d2">
+        <div class="animation-container" data-scene="D2" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Dieselbe Überschneidung erfordert unterschiedliche Regeln: Eine spätere Position kann eine frühere ersetzen; eine vorübergehende Sperre blockiert den zweiten Bearbeiter nur bis zur Übergabe der Kontrolle; Änderungen an Titel und Status können beide bestehen bleiben, weil sie unterschiedliche Felder betreffen.</figcaption>
+      </figure>
+      <p class="sources"><strong>Quellen:</strong> Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a>; Figma, <a href="https://www.figma.com/blog/realtime-editing-of-ordered-sequences/">Realtime editing of ordered sequences</a>; Yjs-Dokumentation, <a href="https://docs.yjs.dev/">https://docs.yjs.dev/</a></p>
+    </section>
+
+    <section id="s10" aria-labelledby="s10-h">
+      <h2 id="s10-h">Nicht alles gehört in die Datenbank</h2>
+      <p>Ein kollaborativer Canvas erzeugt dauerhafte Dokumentdaten, temporäre Präsenzinformationen und kurzlebige Koordinationssignale. Wer alle drei Kategorien wie gewöhnliche Datenbankzeilen behandelt, erzeugt unnötige Last und erschwert zugleich das Zustandsmodell.</p>
+      <h3>Dokumentzustand</h3>
+      <p>Zum dauerhaften gemeinsamen Zustand gehören:</p>
+      <ul>
+        <li>Knoten;</li>
+        <li>Kanten;</li>
+        <li>Beschriftungen;</li>
+        <li>akzeptierte Agentenbeiträge;</li>
+        <li>abgeschlossene Aktionen;</li>
+        <li>Berechtigungen und Workflow-Zustand.</li>
+      </ul>
+      <p>Diese Daten überdauern Verbindungsabbrüche und stehen auch Teilnehmern zur Verfügung, die später hinzukommen.</p>
+      <h3>Präsenz</h3>
+      <p>Präsenz beschreibt dagegen, wer sich gerade im Workspace befindet und woran die Beteiligten arbeiten:</p>
+      <ul>
+        <li>verbundene Teilnehmer;</li>
+        <li>aktuelle Auswahl;</li>
+        <li>aktives Werkzeug;</li>
+        <li>Bearbeitungsstatus;</li>
+        <li>seltener wechselnde Teilnehmermetadaten.</li>
+      </ul>
+      <p>Verlässt ein Teilnehmer den Workspace, verschwindet auch seine Präsenz.</p>
+      <h3>Flüchtige Signale</h3>
+      <p>Noch kurzlebiger sind Signale, die ausschließlich unmittelbare Aktivitäten koordinieren:</p>
+      <ul>
+        <li>Cursorbewegungen;</li>
+        <li>Ziehvorschauen;</li>
+        <li>Hover-Zustände;</li>
+        <li>Reaktionen;</li>
+        <li>„Der Agent wird diese Knoten gleich verbinden“;</li>
+        <li>vorübergehende Animationsauslöser.</li>
+      </ul>
+      <p>Solche Events sind für verbundene Clients nützlich, gehören aber nicht in den dauerhaften Anwendungszustand. Ein Cursor bewegt sich mitunter dutzende Male pro Sekunde; jede Position zu speichern, würde aus einem visuellen Hinweis eine erhebliche Datenbanklast machen. Die Trennung von Dokument, Präsenz und Signal folgt damit aus dem Interaktionsmodell und gilt unabhängig vom gewählten Anbieter.</p>
+      <figure class="figure-breakout" id="fig-d3">
+        <div class="animation-container" data-scene="D3" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Dokument, Präsenz und Signal sind drei verschiedene Arten von State. Ein erstellter Knoten bleibt bestehen; ein Cursor verschwindet nach dem Verbindungsabbruch; ein flüchtiges Absichtssignal des Agenten klingt ab, ohne das Dokument zu ändern.</figcaption>
+      </figure>
+    </section>
+
+    <section id="s11" aria-labelledby="s11-h">
+      <h2 id="s11-h">Supabase: Realtime-Bausteine rund um Postgres</h2>
+      <p>Supabase setzt bei der Realtime-Zusammenarbeit auf eine Postgres-zentrierte Architektur. Die Datenbank bleibt die persistente Source of Truth; drei getrennte Mechanismen verteilen dauerhafte Änderungen und flüchtige Teilnehmeraktivitäten.</p>
+      <h3>Broadcast</h3>
+      <p>Broadcast verteilt Nachrichten mit geringer Latenz über einen Channel und eignet sich für flüchtige Events wie:</p>
+      <ul>
+        <li>Cursorbewegungen;</li>
+        <li>Ziehvorschauen;</li>
+        <li>vorübergehende Agentenaktivität;</li>
+        <li>benutzerdefinierte Ereignisse, die verbundene Clients sofort erreichen sollen.</li>
+      </ul>
+      <pre><code>const channel = supabase.channel(`canvas:${canvasId}`);
+
+channel
+  .on('broadcast', { event: 'cursor' }, ({ payload }) =&gt; {
+    renderRemoteCursor(payload);
+  })
+  .subscribe();</code></pre>
+      <h3>Presence</h3>
+      <p>Presence synchronisiert den temporären Zustand der Teilnehmer und bildet ab:</p>
+      <ul>
+        <li>wer verbunden ist;</li>
+        <li>welcher Knoten ausgewählt ist;</li>
+        <li>welches Werkzeug ein Teilnehmer verwendet;</li>
+        <li>ob ein Agent inaktiv ist, arbeitet oder wartet.</li>
+      </ul>
+      <h3>Datenbankänderungen</h3>
+      <p>Persistente Anwendungsänderungen können von Postgres verteilt werden.</p>
+      <pre><code>supabase
+  .channel(`nodes:${canvasId}`)
+  .on(
+    'postgres_changes',
+    { event: '*', schema: 'public', table: 'nodes' },
+    ({ new: node }) =&gt; updateNode(node),
+  )
+  .subscribe();</code></pre>
+      <p>Supabase kann zudem von der Datenbank ausgelöste Änderungen per Broadcast verteilen. Für viele skalierte Szenarien empfiehlt die Dokumentation diesen Weg anstelle ausschließlich direkter Postgres-Changes-Subscriptions. Der architektonische Reiz liegt in der klaren Aufgabenteilung:</p>
+      <ul>
+        <li>Postgres bleibt die Source of Truth;</li>
+        <li>bestehende SQL- und relationale Modelle bleiben nutzbar;</li>
+        <li>Row-Level Security kann den Zugriff weiterhin steuern;</li>
+        <li>persistente und flüchtige Informationen bleiben getrennt.</li>
+      </ul>
+      <p>Supabase liefert damit Bausteine, aber kein vollständiges Synchronisierungsmodell. Optimistische Updates, der Abgleich lokaler und entfernter Änderungen, Konfliktregeln, Wiederverbindungen und die Drosselung hochfrequenter Events bleiben Aufgabe der Anwendung. Das Modell passt daher zu Teams, die Postgres im Zentrum halten und die Kollaborationssemantik selbst gestalten wollen.</p>
+      <figure class="figure-breakout">
+        <table class="decision-table">
+          <thead>
+            <tr>
+              <th scope="col">Information auf dem Canvas</th>
+              <th scope="col">Supabase-Baustein</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gespeicherte Knoten, Kanten, Beschriftungen, Workflow-Zustand</td><td>Postgres-Zeilen</td></tr>
+            <tr><td>Dauerhafte Änderungen, über die Clients informiert werden sollen</td><td>Datenbankausgelöster Broadcast oder Postgres Changes</td></tr>
+            <tr><td>Verbundene Nutzer, Auswahl, Bearbeitungsstatus</td><td>Presence</td></tr>
+            <tr><td>Cursorbewegungen, Ziehvorschauen, Agentenaktivität</td><td>Broadcast</td></tr>
+          </tbody>
+        </table>
+        <figcaption>Supabase ordnet verschiedene Kollaborationszustände unterschiedlichen Bausteinen zu, statt jede Aktualisierung wie dieselbe Art von Datenbankzeile zu behandeln.</figcaption>
+      </figure>
+      <p class="sources"><strong>Quellen:</strong> Supabase, <a href="https://supabase.com/docs/guides/realtime">Realtime</a>; Supabase, <a href="https://supabase.com/docs/guides/realtime/presence">Presence</a>; Supabase, <a href="https://supabase.com/docs/guides/realtime/architecture">Realtime Architecture</a>; Supabase, <a href="https://supabase.com/docs/guides/realtime/subscribing-to-database-changes">Subscribing to Database Changes</a>; Supabase, <a href="https://supabase.com/docs/guides/realtime/broadcast">Broadcast</a>; Supabase, <a href="https://supabase.com/docs/guides/realtime/limits">Realtime Limits</a>; AgileSoftLabs, <a href="https://www.agilesoftlabs.com/blog/2026/05/supabase-realtime-in-production-what">Supabase Realtime in Production</a> (sekundäre Praxiseinschätzung)</p>
+    </section>
+
+    <section id="s12" aria-labelledby="s12-h">
+      <h2 id="s12-h">InstantDB: Live Queries statt eigener Event-Verarbeitung</h2>
+      <p>Eine synchronisierungsorientierte Datenbank wie InstantDB setzt eine Ebene höher an als die einzelnen Realtime-Bausteine von Supabase. Statt für jedes Event einen Handler zu schreiben, deklariert der Client die benötigten Daten; das System hält dieses Abfrageergebnis aktuell, während Menschen und Agenten den Canvas verändern.</p>
+      <pre><code>const { data } = db.useQuery({
+  nodes: {},
+  edges: {},
+});</code></pre>
+      <p>Ein Schreibvorgang wird als Transaktion gegen das gemeinsame Datenmodell ausgedrückt:</p>
+      <pre><code>db.transact(
+  db.tx.nodes[node.id].update({
+    x: nextPosition.x,
+    y: nextPosition.y,
+    updatedBy: participantId,
+  }),
+);</code></pre>
+      <p>Der konzeptionelle Unterschied zeigt sich im Datenfluss:</p>
+      <h3>Ereignis-Handler</h3>
+      <pre><code>node.moved empfangen
+→ Nachricht prüfen
+→ lokalen Zustand aktualisieren
+→ mit optimistischem Zustand abgleichen</code></pre>
+      <h3>Abonniertes Ergebnis</h3>
+      <pre><code>Knoten und Kanten abonnieren
+→ abonniertes Ergebnis bleibt aktuell</code></pre>
+      <p>Die Komplexität verschwindet dabei nicht, sondern wandert in die Synchronisierungsschicht. Knoten und Kanten nutzen Transaktionen, aktive Teilnehmer und Auswahlzustände Presence, kurzlebige Aktivitäten Topics. Optimistische Updates gehören zum Clientmodell: Der Nutzer verschiebt einen Knoten ohne Warten auf den Server-Roundtrip, während die Transaktion im Hintergrund synchronisiert wird. Dadurch sinkt der anwendungsspezifische Aufwand für Cache-Invalidierung, Subscription-Management und lokalen Abgleich.</p>
+      <p>Im Gegenzug entsteht eine engere architektonische Bindung. Mit InstantDB übernimmt das Team nicht nur einen Transportkanal, sondern auch:</p>
+      <ul>
+        <li>sein Schemamodell;</li>
+        <li>seine Abfragesprache;</li>
+        <li>seine Transaktions-API;</li>
+        <li>sein Berechtigungssystem;</li>
+        <li>sein Synchronisierungsverhalten.</li>
+      </ul>
+      <p>Das ist weitreichender, als einem bestehenden Postgres-Backend Realtime-Zustellung hinzuzufügen. Der relevante Unterschied lautet daher nicht „InstantDB oder Supabase“, sondern: InstantDB übernimmt mehr Synchronisierungsarbeit, Supabase überlässt mehr davon der Anwendung. Ob sich die engere Backend-Abstraktion lohnt, hängt vom eingesparten Synchronisierungscode ab.</p>
+      <figure class="figure-breakout" id="fig-d4">
+        <div class="animation-container" data-scene="D4" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Dieselbe entfernte Änderung erzeugt zwei verschiedene Aufgaben: Bei der Ereigniszustellung muss die Anwendung ihren Cache aktualisieren und abgleichen; bei einer Live-Abfrage ist die Synchronisierungsschicht dafür verantwortlich, das abonnierte Ergebnis aktuell zu halten.</figcaption>
+      </figure>
+      <p class="sources"><strong>Quellen:</strong> InstantDB, <a href="https://www.instantdb.com/essays/db_browser">Database in the Browser, a Spec</a> (vom Anbieter verfasst); InstantDB, <a href="https://www.instantdb.com/essays/architecture">A backend for AI-coded apps</a> (vom Anbieter verfasst); InstantDB, <a href="https://www.instantdb.com/docs/instaql">InstaQL</a>; InstantDB, <a href="https://www.instantdb.com/docs/presence-and-topics">Presence and topics</a>; InstantDB, <a href="https://www.instantdb.com/docs/permissions">Permissions</a>; InstantDB, <a href="https://www.instantdb.com/docs/self-hosting">Self-hosting</a></p>
+    </section>
+
+    <section id="s13" aria-labelledby="s13-h">
+      <h2 id="s13-h">Die Alternativen setzen auf anderen Ebenen an</h2>
+      <p>Supabase und InstantDB markieren zwei mögliche Abstraktionsebenen. Andere Werkzeuge decken gezielt einzelne Teile der Kollaborationsarchitektur ab.</p>
+      <h3>Liveblocks: Zusammenarbeit für ein bestehendes Produkt</h3>
+      <p>Liveblocks ist eine spezialisierte Kollaborationsschicht, kein Ersatz für die Anwendungsdatenbank. Presence, Cursor, Shared Storage, Kommentare und React-Flow-Integrationen richten sich an Teams, die ein bestehendes Backend um kollaborative Canvas-, Dokument- oder Diskussionsfunktionen erweitern wollen.</p>
+      <h3>Yjs: Datenstrukturen für die Zusammenführung</h3>
+      <p>Yjs stellt CRDT-basierte gemeinsame Datentypen bereit. Damit können zwei zeitweise getrennte Clients dasselbe Dokument unabhängig bearbeiten und ihre Änderungen später zusammenführen, ohne eine komplette Version zu verwerfen. Das eignet sich besonders für Offline-Fähigkeit, Rich Text und andere Fälle, in denen konkurrierende Änderungen erhalten bleiben müssen. Netzwerk, Persistenz, Authentifizierung und Betrieb organisiert das Team weiterhin selbst.</p>
+      <h3>Firebase: etablierte Synchronisierung zwischen Datenbank und Client</h3>
+      <p>Firebase Realtime Database und Firestore Listener stehen für das etablierte Modell, Backend-Daten direkt im Client zu abonnieren. Sie zeigen, dass datenbankgetriebene Realtime-Interfaces keine neue Idee sind, und dienen als wichtiger Bezugspunkt für neuere Angebote wie InstantDB.</p>
+      <h3>Eigene Sync-Engine: Zusammenarbeit als Kerninfrastruktur</h3>
+      <p>Eine eigene Sync-Engine lohnt sich, wenn die Kollaborationssemantik das Produkt wesentlich differenziert, kein bestehendes System zum Konfliktmodell passt oder die Skalierung spezialisierte Infrastruktur rechtfertigt. Figma ist dafür das naheliegende Beispiel und zeigt zugleich den erheblichen Entwicklungs- und Betriebsaufwand dieses Wegs.</p>
+      <p class="sources"><strong>Quellen:</strong> Liveblocks, <a href="https://liveblocks.io/docs/api-reference/liveblocks-react-flow">React Flow integration</a>; Liveblocks, <a href="https://liveblocks.io/docs">documentation</a>; Yjs-Dokumentation, <a href="https://docs.yjs.dev/">https://docs.yjs.dev/</a>; Firebase, <a href="https://firebase.google.com/docs/database">Realtime Database documentation</a>; Firebase, <a href="https://firebase.google.com/docs/firestore/query-data/listen">Cloud Firestore realtime listeners</a>; Figma, <a href="https://www.figma.com/blog/how-figmas-multiplayer-technology-works/">How Figma's multiplayer technology works</a></p>
+    </section>
+
+    <section id="s14" aria-labelledby="s14-h">
+      <h2 id="s14-h">Die Architektur folgt dem Interaktionsmodell</h2>
+      <p>Keine dieser Optionen gewinnt jeden Vergleich, denn sie beantworten unterschiedliche Fragen. <strong>Polling</strong> passt zu seltenen Updates und tolerierbaren Verzögerungen, <strong>SSE</strong> zu Agentenausgaben und Fortschritt, die überwiegend vom Server zum Browser fließen.</p>
+      <p><strong>Eigene WebSockets</strong> lohnen sich für spezialisierte Protokolle, die den Aufwand für Verbindungsverwaltung, Reihenfolge, Räume und Abgleich rechtfertigen. <strong>Supabase Realtime</strong> hält Postgres als Source of Truth im Zentrum und überlässt der Anwendung die Komposition aus Broadcast, Presence und Datenbank-Events.</p>
+      <p><strong>InstantDB</strong> passt, wenn synchronisierter Client-State im Mittelpunkt steht und das Projekt ein integriertes Backend-Modell übernehmen kann. <strong>Liveblocks</strong> ergänzt ein vorhandenes Backend um Kollaboration; <strong>Yjs</strong> adressiert vor allem konkurrierende und zeitweise offline vorgenommene Bearbeitungen.</p>
+      <figure class="figure-breakout">
+        <table class="decision-table">
+          <thead>
+            <tr>
+              <th scope="col">Anforderung des Interfaces</th>
+              <th scope="col">Praktischer Ausgangspunkt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Status einer Hintergrundaufgabe prüfen</td><td>Polling</td></tr>
+            <tr><td>Agentenausgabe oder Fortschritt streamen</td><td>SSE</td></tr>
+            <tr><td>Ein spezialisiertes Realtime-Protokoll entwickeln</td><td>WebSockets</td></tr>
+            <tr><td>Postgres um Realtime-Funktionen ergänzen</td><td>Supabase</td></tr>
+            <tr><td>Ein integriertes, synchronisierungsorientiertes Backend einführen</td><td>InstantDB</td></tr>
+            <tr><td>Eine bestehende Anwendung um Kollaboration ergänzen</td><td>Liveblocks</td></tr>
+            <tr><td>Gleichzeitige oder Offline-Bearbeitungen zusammenführen</td><td>Yjs</td></tr>
+          </tbody>
+        </table>
+        <figcaption>Dies sind Ausgangspunkte, keine automatischen Antworten. Ein Produktivsystem kann mehrere davon kombinieren.</figcaption>
+      </figure>
+    </section>
+
+    <section id="s15" aria-labelledby="s15-h">
+      <h2 id="s15-h">Zurück zum gemeinsamen Workspace</h2>
+      <p>Auf dem anfangs unübersichtlichen Canvas arbeiten weiterhin ein Nutzer, ein menschlicher Reviewer, ein Rechercheagent und ein Strukturagent. Die Zahl der Aktionen hat nicht abgenommen; geändert hat sich ihre Darstellung.</p>
+      <figure class="figure-breakout" id="fig-v5">
+        <div class="animation-container" data-scene="V5" data-theme="dark" data-cursor-tags="boxed" role="img" aria-labelledby="v5-caption"></div>
+        <figcaption id="v5-caption">Ein verständlicher Arbeitsbereich für mehrere Agenten: Der Nutzer erstellt eine Idee, während der Rechercheagent ankündigt, Belege hinzuzufügen. Der Strukturagent hebt zwei Ziele hervor, bevor er sie verbindet. Ein zweiter Mensch prüft die übergeordnete Frage. Wenn eine Agentenaktion mit einer menschlichen Bearbeitung kollidiert, wendet die Oberfläche eine sichtbare Regel an und zeichnet das Ergebnis im Aktivitätsverlauf auf.</figcaption>
+      </figure>
+      <p>Agentenaktionen erscheinen nun mit Kontext: Das Interface zeigt ihr Ziel vorab, markiert vorläufige Arbeit, ordnet abgeschlossene Änderungen einem Urheber zu und bietet bei folgenreichen Eingriffen eine Möglichkeit zum Abbruch oder Undo. Überschneiden sich zwei Aktionen, greift eine sichtbare Konfliktregel. Der Canvas ist dadurch nicht weniger aktiv, aber deutlich leichter zu verstehen.</p>
+    </section>
+
+    <section id="s16" aria-labelledby="s16-h">
+      <h2 id="s16-h">Für Akteure entwickeln, nicht für Requests</h2>
+      <p>Die Architektur kollaborativer KI-Interfaces muss zwei Fragen beantworten: Wie erreicht eine Änderung alle Beteiligten, und wie können sie diese Änderung verstehen und sicher darauf reagieren? Polling, SSE, WebSockets, Realtime-Dienste und Sync-Engines adressieren die Zustellung auf unterschiedlichen Abstraktionsebenen. Präsenz, Absicht, Urheberschaft, Berechtigungen, Konfliktregeln und Undo schaffen die notwendige Verständlichkeit.</p>
+      <p>Eine schnelle Verbindung ersetzt kein nachvollziehbares Interaktionsmodell. KI-Produkte, in denen Agenten selbst handeln, dürfen deshalb nicht länger um einzelne Requests herum gedacht werden. Sie müssen für mehrere gleichzeitig handelnde Akteure gebaut sein.</p>
+    </section>
+
+  </article>
+
+  <script src="js/timeline.js"></script>
+  <script src="js/kit.js"></script>
+  <script src="js/renderer.js"></script>
+  <!-- Szenendateien: Weitere werden hier ergänzt, sobald die Szenen V1-V10 implementiert sind. -->
+  <script src="js/scenes/v1.js"></script>
+  <script src="js/scenes/v2.js"></script>
+  <script src="js/scenes/v2-shared-canvas.js"></script>
+  <script src="js/scenes/v3.js"></script>
+  <script src="js/scenes/v4.js"></script>
+  <script src="js/scenes/v5.js"></script>
+  <script src="js/scenes/d1.js"></script>
+  <script src="js/scenes/d2.js"></script>
+  <script src="js/scenes/d3.js"></script>
+  <script src="js/scenes/d4.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

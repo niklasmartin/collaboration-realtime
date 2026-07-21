@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dunkle V2-Varianten — Swimlanes / Signiert / Fließband / Gemeinsame Arbeitsfläche</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <article id="compare" style="padding-top: var(--sp-12);">
+    <header class="article-header">
+      <h1 style="font-size: var(--fs-28);">Dunkle V2-Varianten — eine Richtung wählen</h1>
+      <p class="subtitle">Artefakt zur Begutachtung, nicht Teil des Artikels. Drei Varianten auf dunkler Arbeitsfläche zum Ablauf „Anfrage und Antwort, dann tritt ein Agent hinzu“ sowie eine vierte Richtung mit gemeinsamer Arbeitsfläche, auf der beide Beteiligten Knoten in denselben Graphen einfügen — mit identischem Inhalt und einer zusätzlichen, von Miro inspirierten Sequenz aus Vorschlag und paralleler Arbeit.</p>
+    </header>
+
+    <section>
+      <h2>Variante A — Swimlanes</h2>
+      <p>Herkunft durch Position: Der Vorschlag des Agenten entsteht in einer schmalen Spur, räumlich getrennt vom Strang des Menschen. Nach der Freigabe gleitet er hinüber und wird übernommen.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2A" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variante A — der Nachweisknoten des Agenten erscheint gestrichelt in einer eigenen Spur und gleitet nach der Freigabe auf den Hauptstrang.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variante B — Signiert</h2>
+      <p>Herkunft durch Zuordnung: Jeder Knoten auf dem gemeinsamen Strang trägt dauerhaft einen Urheberstempel — „Sie“ oder „Recherche-Agent“. Während der Strang wächst, kommen weitere Stempel hinzu; bei einer Freigabe wechselt der jeweilige Stempel.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2B" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variante B — der Stempel des Nachweisknotens lautet zunächst „vorgeschlagen · Recherche-Agent“ und wechselt bei der Übernahme zu „freigegeben · Sie“.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variante C — Fließband</h2>
+      <p>Die Kontrollvariante: ein einzelner Strang, in den jedes Element unterhalb des vorherigen fällt. Es gibt weder Spuren noch Stempel; nur die Cursor-Beschriftungen zeigen die Identität.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2C" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variante C — der gestrichelte Nachweisknoten wird an Ort und Stelle am unteren Ende der Gliederung übernommen und durchgezogen dargestellt.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Variante D — Gemeinsame Arbeitsfläche</h2>
+      <p>Die von Miro inspirierte Richtung: eine vereinfachte Graph-Arbeitsfläche, auf der Sie und der Agent Knoten in dieselbe Umgebung einfügen. Das prägende Motiv ist die parallele Urheberschaft: Sie tippen Ihre eigene Lösung, während der Agent gleichzeitig eine weitere entwickelt. Anschließend gleitet Ihr Knoten nach links, um Platz für den gestrichelten Nachbarknoten des Agenten zu schaffen. Die Recherche wird als eingerückte Unterzeile <em>innerhalb</em> Ihrer Lösungskarte eingeordnet, weil sie dorthin gehört und kein gleichrangiger Knoten auf der Arbeitsfläche ist.</p>
+      <figure class="figure-breakout">
+        <div class="animation-container" data-scene="V2D" data-theme="dark" data-cursor-tags="boxed"></div>
+        <figcaption>Variante D — Sie tippen „Onboarding-E-Mails“, während der Agent nachdenkt. Später fällt seine Recherche in Ihre Karte und bleibt bis zu Ihrer Bestätigung gestrichelt.</figcaption>
+      </figure>
+    </section>
+  </article>
+
+  <script src="js/timeline.js?v=4"></script>
+  <script src="js/kit.js?v=4"></script>
+  <script src="js/renderer.js?v=4"></script>
+  <script src="js/scenes/v2-swimlane.js?v=4"></script>
+  <script src="js/scenes/v2-signed.js?v=4"></script>
+  <script src="js/scenes/v2-assembly.js?v=4"></script>
+  <script src="js/scenes/v2-shared-canvas.js?v=4"></script>
+  <script src="js/main.js?v=4"></script>
+</body>
+</html>

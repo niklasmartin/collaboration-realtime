@@ -40,9 +40,9 @@
 
     // Polling: two empty round trips before the update is discovered.
     packet(scene, 'poll-get-1', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 900, 650);
-    packet(scene, 'poll-empty-1', 'keine Änderung', { x: 164, y: 238 }, { x: 92, y: 238 }, 1900, 650, { w: 84, kind: 'standard' });
+    packet(scene, 'poll-empty-1', 'keine Änderung', { x: 164, y: 238 }, { x: 92, y: 238 }, 1900, 650, { w: 92, kind: 'standard' });
     packet(scene, 'poll-get-2', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 4100, 650);
-    packet(scene, 'poll-empty-2', 'keine Änderung', { x: 164, y: 238 }, { x: 92, y: 238 }, 5100, 650, { w: 84, kind: 'standard' });
+    packet(scene, 'poll-empty-2', 'keine Änderung', { x: 164, y: 238 }, { x: 92, y: 238 }, 5100, 650, { w: 92, kind: 'standard' });
     packet(scene, 'poll-get-3', 'GET', { x: 102, y: 138 }, { x: 164, y: 138 }, 7300, 650);
     packet(scene, 'poll-data', 'Update', { x: 164, y: 238 }, { x: 92, y: 238 }, 8300, 650, { kind: 'provisional' });
     scene.showIntent(null, 'bei nächster Abfrage gefunden', 9100, { anchor: { x: 140, y: 286 }, duration: 1300 });

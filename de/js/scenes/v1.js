@@ -68,7 +68,6 @@
     scene.moveCursor('user', { x: 410, y: 136 }, { x: 410, y: 192 }, 2200, 550, { arc: -10 });
     scene.click('user', 'addIdea', 2750, { pressDuration: 140 });
     scene.pulse(410, 192, 2750, { radius: 22, duration: 600 });
-    scene.appendActivity('Sie fügen eine Idee hinzu', 2750);
 
     scene.hideButton('addIdea', 2900, { fade: 160 });
     scene.selectNode('problem', 2900, false);

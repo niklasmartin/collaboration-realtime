@@ -152,15 +152,15 @@
       this.container.appendChild(this.overlay);
 
       this.activityEl = document.createElement('div');
-      this.activityEl.className = 'animation-activity-log';
+      this.activityEl.className = 'animation-outcome';
       this.activityEl.style.cssText = [
         'position:absolute',
         'left:12px',
         'right:12px',
-        'bottom:8px',
-        'font:10px "Berkeley Mono","SF Mono",ui-monospace,monospace',
-        `color:${this.theme.textDim}`,
-        'line-height:1.5',
+        'bottom:12px',
+        'font:11px "Berkeley Mono","SF Mono",ui-monospace,monospace',
+        `color:${this.theme.textMuted}`,
+        'text-align:center',
         'white-space:nowrap',
         'overflow:hidden',
         'text-overflow:ellipsis',
@@ -605,7 +605,10 @@
         if (c.label && c.opacity > 0.05) {
           rec.chip.textContent = c.label;
           rec.chip.style.left = `${(c.x / this.width) * 100}%`;
-          rec.chip.style.top = `${((c.y - 8) / this.height) * 100}%`;
+          rec.chip.style.top = c.labelBelow
+            ? `${((c.y + 14) / this.height) * 100}%`
+            : `${((c.y - 8) / this.height) * 100}%`;
+          rec.chip.style.transform = c.labelBelow ? 'translate(-50%, 0)' : 'translate(-50%, -100%)';
           rec.chip.style.opacity = String(c.opacity);
           rec.chip.style.display = '';
         } else {
@@ -704,7 +707,17 @@
     }
 
     _renderActivity(lines) {
-      this.activityEl.textContent = lines.join('   ·   ');
+      const text = lines.length > 0 ? lines[lines.length - 1] : '';
+      const parts = text.split('|');
+      if (parts.length === 2) {
+        this.activityEl.style.display = 'flex';
+        this.activityEl.style.justifyContent = 'space-between';
+        this.activityEl.innerHTML = `<span>${parts[0]}</span><span>${parts[1]}</span>`;
+      } else {
+        this.activityEl.style.display = '';
+        this.activityEl.style.justifyContent = '';
+        this.activityEl.textContent = text;
+      }
     }
 
     _pruneStale(map, seen, removeFn) {

@@ -36,14 +36,12 @@
       label: 'Bericht zur Kundenabwanderung',
       duration: 400,
     });
-    scene.appendActivity('Bericht erstellt', 600);
 
     // Alex enters, selects
     scene.showCursor('alex', 1000, { fade: 200, label: 'Alex' });
     scene.moveCursor('alex', { x: 780, y: 50 }, { x: 405, y: 110 }, 1000, 700, { arc: 0 });
     scene.selectNode('docNode', 1700, true, { color: '#5e6ad2' });
     scene.pulse(405, 110, 1700, { radius: 22, duration: 500 });
-    scene.appendActivity('Alex wählt den Bericht aus', 1700);
 
     // Alex leaves to the right, Jordan enters after Alex is gone
     scene.selectNode('docNode', 2500, false);
@@ -57,7 +55,6 @@
     // Jordan leaves — node stays alone
     scene.moveCursor('jordan', { x: 405, y: 98 }, { x: 780, y: 50 }, 4300, 500, { arc: 0 });
     scene.hideCursor('jordan', 4800, { fade: 250 });
-    scene.appendActivity('Personen gehen; das Dokument bleibt', 4600);
 
     // ======================================================================
     // Lane 2 — Presence
@@ -69,22 +66,18 @@
 
     // Maya enters from the left
     scene.showCursor('maya', 5000, { fade: 200, label: 'Maya' });
-    scene.appendActivity('Maya ist beigetreten', 5000);
     scene.moveCursor('maya', { x: 20, y: 220 }, { x: 200, y: 230 }, 5000, 700, { arc: 0 });
     scene.pulse(200, 230, 5700, { radius: 20, duration: 500 });
 
     // Maya leaves, then agent enters
     scene.hideCursor('maya', 6200, { fade: 280 });
-    scene.appendActivity('Maya hat die Verbindung getrennt', 6200);
 
     // Research agent enters from the right
     scene.showCursor('ragent', 6400, { fade: 200, label: 'Recherche-Agent' });
-    scene.appendActivity('Recherche-Agent ist beigetreten', 6400);
     scene.moveCursor('ragent', { x: 780, y: 195 }, { x: 540, y: 215 }, 6400, 700, { arc: 0 });
     scene.pulse(540, 215, 7100, { radius: 20, duration: 500, color: '#5e6ad2' });
 
     scene.hideCursor('ragent', 7500, { fade: 280 });
-    scene.appendActivity('Alle sind gegangen; Präsenz ist geleert', 7500);
 
     // ======================================================================
     // Lane 3 — Signal
@@ -102,7 +95,6 @@
       duration: 1800,
       fade: 280,
     });
-    scene.appendActivity('Signal erscheint kurz', 8000);
 
     // Signal 2 — right side (starts after first fully fades)
     scene.pulse(580, 348, 10000, { radius: 28, duration: 1600 });
@@ -111,7 +103,6 @@
       duration: 750,
       fade: 280,
     });
-    scene.appendActivity('Ein weiteres Signal erscheint kurz', 10000);
 
     // ======================================================================
     // t=11600–15300 — settled taxonomy.

@@ -34,7 +34,7 @@
     var SOL_AGENT       = { x: 490, y: 155, w: 260, h: 72 };  // c = 620, after reflow
 
     // [Add research] under user's solution (centered at 190 after reflow).
-    var TRIG_RESEARCH = { x: 130, y: 242, w: 120, h: 28 };
+    var TRIG_RESEARCH = { x: 120, y: 242, w: 140, h: 28 };
 
     // ======================================================================
     // Beat 1 — problem fades in at the top, alone.
@@ -87,14 +87,13 @@
     scene.moveCursor('user', { x: 410, y: 56 }, { x: 327, y: 112 }, 2200, 550, { arc: -10 });
     scene.click('user', 'proposeSolutions', 2750, { pressDuration: 140 });
     scene.pulse(327, 112, 2750, { radius: 22, duration: 600 });
-    scene.appendActivity('Lösungsvorschläge angefordert', 2750);
 
     // Agent appears offset right of the problem (not on it).
     scene.showCursor('agent', 3100, { fade: 220, label: 'Recherche-Agent' });
     scene.moveCursor('agent', { x: 480, y: 5 }, { x: 456, y: 36 }, 3100, 650, { arc: 12 });
     scene.selectNode('problem', 3900, true, { color: '#5e6ad2' });
-    scene.showIntent('agent', 'Liest', 4000, { anchor: { x: 456, y: 60 }, duration: 1400 });
-    scene.showIntent('agent', 'Denkt nach', 5500, { anchor: { x: 456, y: 60 }, duration: 2800 });
+    scene.setCursorLabel('agent', 'Recherche-Agent 🔍', 4000);
+    scene.setCursorLabel('agent', 'Recherche-Agent 💭', 5500);
 
     // ======================================================================
     // Beat 4 (the parallel frame) — user clicks [Add solution] while the
@@ -128,6 +127,8 @@
     scene.typewriterLabel('userSolution', 'Onboarding-E-Mails', 7700, { step: 63 });
     var typeDoneAt = 7700 + 16 * 70; // ~8820
 
+    scene.setCursorLabel('agent', 'Recherche-Agent', 8300);
+
     // ======================================================================
     // Beat 5 — agent finishes thinking. Your node slides left to make room;
     // the agent's dashed sibling appears to its right. Two edges from the
@@ -152,7 +153,6 @@
     scene.drawEdge('e-problem-agent', 'problem', 'agentSolution', 10660, 500, {
       fromAnchor: 'bottom', toAnchor: 'top',
     });
-    scene.appendActivity('Lösung vorgeschlagen', 10300);
 
     // ======================================================================
     // Beat 6 — you approve the agent's node. Dashed → solid.
@@ -163,7 +163,6 @@
     scene.showApproval(13400, { anchor: { x: 620, y: 242 }, duration: 800 });
     scene.commitProvisional('agentSolution', 13800);
     scene.selectNode('agentSolution', 13900, false);
-    scene.appendActivity('Lösung freigegeben', 13800);
 
     // ======================================================================
     // Beat 7 — you select your own solution. [Add research] button fades in
@@ -183,15 +182,15 @@
     scene.moveCursor('user', { x: 190, y: 190 }, { x: 190, y: 256 }, 15600, 600, { arc: 6 });
     scene.click('user', 'addResearch', 16200, { pressDuration: 140 });
     scene.pulse(190, 256, 16200, { radius: 22, duration: 500 });
-    scene.appendActivity('Recherche angefordert', 16200);
     scene.hideButton('addResearch', 16300, { fade: 180 });
     scene.selectNode('userSolution', 16300, false);
 
     scene.moveCursor('agent', { x: 620, y: 178 }, { x: 456, y: 36 }, 16500, 800, { arc: 14 });
     scene.selectNode('problem', 17400, true, { color: '#5e6ad2' });
-    scene.showIntent('agent', 'Liest', 17500, { anchor: { x: 456, y: 60 }, duration: 1600 });
+    scene.setCursorLabel('agent', 'Recherche-Agent 🔍', 17500);
 
     scene.selectNode('problem', 19200, false);
+    scene.setCursorLabel('agent', 'Recherche-Agent', 19100);
     scene.moveCursor('agent', { x: 456, y: 36 }, { x: 190, y: 186 }, 19200, 700, { arc: -10 });
 
     // Beat 9 — finding appears inside the card, typed by the agent.
@@ -201,7 +200,6 @@
       19900,
       { typewriter: true, step: 50, fade: 280 }
     );
-    scene.appendActivity('Recherche vorgeschlagen', 19900);
 
     // ======================================================================
     // Beat 10 — you confirm the nested finding. Dashed sub-line → solid.
@@ -210,7 +208,6 @@
     scene.moveCursor('user', { x: 190, y: 256 }, { x: 190, y: 218 }, 21500, 600, { arc: 8 });
     scene.showApproval(22000, { anchor: { x: 190, y: 244 }, duration: 700 });
     scene.commitNested('userSolution', 22400);
-    scene.appendActivity('Recherche bestätigt', 22400);
 
     // ======================================================================
     // Beat 11 — rest & loop.
@@ -223,7 +220,7 @@
 
   if (root) {
     root.scenes = root.scenes || {};
-    root.scenes.V2D = compiled;
+    root.scenes.V2 = compiled;
   }
   if (typeof module !== 'undefined' && module.exports) module.exports = compiled;
 })(typeof window !== 'undefined' ? window : null);

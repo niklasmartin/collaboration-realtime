@@ -17,13 +17,13 @@
       left: {
         problem: { x: 94, y: 116, w: 200, h: 48 },
         user: { x: 40, y: 205, w: 142, h: 48 },
-        agent: { x: 206, y: 205, w: 142, h: 48 },
+        agent: { x: 206, y: 205, w: 155, h: 48 },
         evidence: { x: 206, y: 292, w: 142, h: 44 },
       },
       right: {
         problem: { x: 506, y: 116, w: 200, h: 48 },
         user: { x: 452, y: 205, w: 142, h: 48 },
-        agent: { x: 618, y: 205, w: 142, h: 48 },
+        agent: { x: 612, y: 205, w: 155, h: 48 },
         evidence: { x: 618, y: 292, w: 142, h: 44 },
       },
     };
@@ -42,8 +42,6 @@
     scene.cursor('research', { kind: 'agent', x: 746, y: 350, label: '', opacity: 0 });
     scene.cursor('structure', { kind: 'agent', x: 746, y: 274, label: '', opacity: 0 });
     scene.cursor('maya', { kind: 'human', x: 770, y: 132, label: '', opacity: 0 });
-    scene.stamp('evidence-stamp', { x: 689, y: 357, text: 'Recherche · vorgeschlagen', kind: 'agent', opacity: 0 });
-    scene.node('history', { x: 454, y: 368, w: 304, h: 26, label: 'Verlauf erklärt abgeschlossene Änderungen', opacity: 1 });
 
     // 1. The same card moves on both sides. Only the right explains it.
     scene.showCursor('you', 1200, { label: 'Sie', fade: 180 });
@@ -52,7 +50,6 @@
     scene.moveNode('left-user', { x: 40, y: 205 }, { x: 40, y: 270 }, 2200, 700, { easing: 'easeInOut' });
     scene.moveNode('right-user', { x: 452, y: 205 }, { x: 452, y: 270 }, 2200, 700, { easing: 'easeInOut' });
     scene.moveCursor('you', { x: 523, y: 232 }, { x: 523, y: 297 }, 2200, 700, { arc: 0 });
-    scene.setLabel('history', 'Verlauf: Sie verschieben Onboarding-E-Mails', 3300);
     scene.selectNode('right-user', 3500, false);
     scene.hideCursor('you', 3600, { fade: 180 });
 
@@ -61,18 +58,15 @@
     scene.moveCursor('research', { x: 746, y: 350 }, { x: 688, y: 314 }, 4100, 600, { arc: 0 });
     scene.createNode('left-evidence', 4900, { x: 206, y: 292, w: 142, h: 44, label: 'Nachweis: 2 Studien', duration: 350 });
     scene.createNode('right-evidence', 4900, { x: 618, y: 292, w: 142, h: 44, label: 'Nachweis: 2 Studien', kind: 'provisional', duration: 350 });
-    scene.showStamp('evidence-stamp', 5000, { text: 'Recherche · vorgeschlagen', kind: 'agent', fade: 180 });
-    scene.setLabel('history', 'Verlauf: Recherche-Agent fügte Nachweis hinzu', 5700);
     scene.hideCursor('research', 6000, { fade: 180 });
 
     // 3. The same connection appears. Selection and actor explain it right.
     scene.showCursor('structure', 6500, { label: 'Struktur-Agent', fade: 180 });
-    scene.moveCursor('structure', { x: 746, y: 274 }, { x: 689, y: 280 }, 6500, 550, { arc: 0 });
+    scene.moveCursor('structure', { x: 746, y: 274 }, { x: 683, y: 280 }, 6500, 550, { arc: 0 });
     scene.selectNode('right-evidence', 7100, true, { color: '#5e6ad2' });
     scene.selectNode('right-agent', 7100, true, { color: '#5e6ad2' });
     scene.drawEdge('left-evidence-link', 'left-evidence', 'left-agent', 7600, 650, { fromAnchor: 'top', toAnchor: 'bottom', straight: true });
     scene.drawEdge('right-evidence-link', 'right-evidence', 'right-agent', 7600, 650, { fromAnchor: 'top', toAnchor: 'bottom', straight: true });
-    scene.setLabel('history', 'Verlauf: Struktur-Agent verband den Nachweis', 8500);
     scene.selectNode('right-evidence', 8800, false);
     scene.selectNode('right-agent', 8800, false);
     scene.hideCursor('structure', 9000, { fade: 180 });
@@ -81,11 +75,8 @@
     scene.showCursor('maya', 9400, { label: 'Maya', fade: 180 });
     scene.moveCursor('maya', { x: 770, y: 132 }, { x: 606, y: 140 }, 9400, 650, { arc: 0 });
     scene.selectNode('right-problem', 10100, true, { color: '#a0a0ab' });
-    scene.setLabel('history', 'Präsenz: Maya liest die Frage', 10300);
-    scene.showIntent(null, 'gleicher Dokumentzustand', 11100, { anchor: { x: 194, y: 390 }, duration: 1300 });
-    scene.showIntent(null, 'verständliche Aktivität', 11100, { anchor: { x: 606, y: 426 }, duration: 1300 });
 
-    scene.appendActivity('Links: stille Änderungen · Rechts: Akteur, Absicht, vorläufiger Zustand und Verlauf', 11200);
+    scene.appendActivity('Links: stille Änderungen · Rechts: Akteur, Absicht und vorläufiger Zustand', 11200);
     return scene.build();
   }
 

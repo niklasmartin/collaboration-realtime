@@ -50,7 +50,6 @@
       scene.pulse(205, p.y + 19, p.at, { radius: 23, duration: 700 });
     });
     scene.pulse(205, 377, 6200, { radius: 26, duration: 700 });
-    scene.showIntent(null, 'aktuell, nachdem Anwendungscode lief', 6500, { anchor: { x: 205, y: 430 }, duration: 1800 });
 
     // The sync layer maintains the result as one continuous contract.
     scene.pulse(595, 201, 1900, { radius: 30, duration: 750, color: '#5e6ad2' });
@@ -58,9 +57,8 @@
     scene.moveNode('fresh-result', { x: 554, y: 248 }, { x: 554, y: 307 }, 2980, 650, { easing: 'easeInOut' });
     scene.removeNode('fresh-result', 3900, { duration: 160 });
     scene.pulse(595, 327, 3700, { radius: 30, duration: 750, color: '#5e6ad2' });
-    scene.showIntent(null, 'automatisch aktuell', 4100, { anchor: { x: 595, y: 390 }, duration: 2300 });
+    scene.appendActivity('aktuell, nachdem Anwendungscode lief|automatisch aktuell', 7200);
 
-    scene.appendActivity('Gleiche entfernte Änderung · links: Anwendung gleicht ab · rechts: Abonnement bleibt aktuell', 7200);
     return scene.build();
   }
 

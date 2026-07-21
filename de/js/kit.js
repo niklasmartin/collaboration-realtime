@@ -93,7 +93,7 @@ function node(id, config) {
       config = config || {};
       const pos = { x: config.x || 0, y: config.y || 0 };
       const rec = {
-        cfg: { kind: config.kind || 'human' },
+        cfg: { kind: config.kind || 'human', labelBelow: !!config.labelBelow },
         pos: new Track('vector', pos),
         opacity: new Track('linear', config.opacity != null ? config.opacity : 0),
         label: new Track('step', config.label || ''),
@@ -355,6 +355,13 @@ function node(id, config) {
       return api;
     }
 
+    function setSublabel(id, text, at) {
+      const rec = nodes.get(id);
+      if (!rec) throw new Error(`SceneKit.setSublabel: unknown node "${id}"`);
+      rec.sublabel.addKeyframe(at, text);
+      return api;
+    }
+
     function createNode(id, at, config) {
       config = config || {};
       const dur = config.duration != null ? config.duration : 300;
@@ -545,7 +552,7 @@ function node(id, config) {
       const anchor = options.anchor || { x: 0, y: 0 };
       const dur = options.duration != null ? options.duration : 700;
       const fade = options.fade != null ? options.fade : 180;
-      const text = options.text != null ? options.text : '✓ Freigegeben';
+      const text = options.text != null ? options.text : '✅';
       return showIntent('approval', text, at, { anchor, duration: dur, fade, id: options.id });
     }
 
@@ -630,6 +637,7 @@ function node(id, config) {
         outCursors.push({
           id,
           kind: rec.cfg.kind,
+          labelBelow: rec.cfg.labelBelow,
           x: pos.x,
           y: pos.y,
           opacity: rec.opacity.valueAt(elapsed),
@@ -723,7 +731,7 @@ function node(id, config) {
       const outActivity = activity
         .filter((a) => a.at <= elapsed)
         .map((a) => a.text)
-        .slice(-4);
+        .slice(-1);
 
       const outPulses = [];
       pulses.forEach((p) => {
@@ -776,6 +784,7 @@ function node(id, config) {
       setStampText,
       selectNode,
       setLabel,
+      setSublabel,
       createNode,
       removeNode,
       showGhost,

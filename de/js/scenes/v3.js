@@ -114,7 +114,6 @@
       kind: 'standard',
       duration: 350,
     });
-    scene.appendActivity('Recherche-Agent fügt Nachweis hinzu', 5850);
 
     // Structure agent connects the two solution nodes side-by-side.
     scene.moveCursor('structureAgent', { x: 620, y: 175 }, { x: 620, y: 205 }, 6200, 350, { arc: 4 });
@@ -146,10 +145,7 @@
     scene.moveNode('userSolution', { x: USER_SOL.x, y: USER_SOL.y }, { x: 35, y: USER_SOL.y }, 8600, 280, { easing: 'easeInOut' });
     scene.moveNode('userSolution', { x: 35, y: USER_SOL.y }, { x: 85, y: USER_SOL.y }, 8880, 280, { easing: 'easeInOut' });
     scene.moveNode('userSolution', { x: 85, y: USER_SOL.y }, { x: USER_SOL.x, y: USER_SOL.y }, 9160, 280, { easing: 'easeInOut' });
-    scene.showIntent(null, 'KOLLISION: eine Karte, zwei Ziele', 9300, {
-      anchor: { x: 400, y: 430 }, duration: 1500, fade: 180,
-    });
-    scene.appendActivity('Kollision ungelöst: Sie und der Struktur-Agent verschieben Onboarding-E-Mails', 9300);
+    scene.appendActivity('⚠️ Kollision: eine Karte, zwei Ziele', 9300);
 
     // ======================================================================
     // Beat 7 — Hold the unresolved collision long enough to read it.

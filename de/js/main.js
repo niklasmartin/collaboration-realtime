@@ -46,4 +46,12 @@
 
     observer.observe(container);
   });
+
+  document.querySelectorAll('a.scene-ref').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      var target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 })();
